@@ -1,6 +1,6 @@
 # Reading for Gender Bias
 
-*** Promote gender equality by identifying potential gender bias in letters of recommendation and evaluations ***
+***Promote gender equality by identifying potential gender bias in letters of recommendation and evaluations***
 
 ## Welcome! 
 
