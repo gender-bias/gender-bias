@@ -61,7 +61,7 @@ If you want to report a problem or suggest an improvement, please [open an issue
 ## Learn more
 
 * [Contributors' guidelines](CONTRIBUTING.md)
-* [Roadmap](../../XXX)
+* [Roadmap](https://github.com/molliem/gender-bias/issues/1)
 
 Studies on gender bias in letters/evaluations
 
