@@ -1,6 +1,7 @@
 # Reading for Gender Bias
 
 ***Promote gender equality by identifying potential gender bias in letters of recommendation and evaluations***
+***Autocorrect for bias***
 
 Implicit gender bias in evaluations negatively impacts women at every stage of their career. The goal of this project is to create a web-based text analysis tool that scans and reveals language bias associated with evaluations and letters of recommendation written for trainees and applicants. Bringing awareness to the existence of implicit bias may impact how evaluations for women are drafted and judged, thereby providing a concrete way to tackle gender disparities.
 
