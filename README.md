@@ -50,7 +50,7 @@ Help in any way you can!
 
 We need expertise in web design, program development, documentation, and technical writing.
 
-If you think you can help in any of these areas or in an area I haven't thought of yet, please check out our [contributors' guidelines](CONTRIBUTING.md) and our [roadmap](roadmap).
+If you think you can help in any of these areas or in an area I haven't thought of yet, please check out our [contributors' guidelines](CONTRIBUTING.md) and our [roadmap](https://github.com/molliem/gender-bias/issues/1).
 
 The goal of this project is to promote gender equity, so we want to maintain a positive and supportive environment for everyone who wants to participate.  Please follow the [code of conduct](CODE_OF_CONDUCT.md) in all interactions on and offline.  Thanks!
 
