@@ -122,6 +122,6 @@ Studies on gender bias show that letters/evaluations written for women are:
 * Trix, F. & Psenka, C., "Exploring the color of glass: Letters of recommendation for female and male medical faculty," Discourse & Society 14(2003): 191-220.
 
 [link_implicitbias]: https://en.wikipedia.org/wiki/Implicit_stereotype
-[link_Jason]: https://XXXX
-[link_Mollie]: https://XXX
+[link_Jason]: https://twitter.com/jaclark
+[link_Mollie]: https://twitter.com/MollieMarr
 [link_mozilla]: https://mozilla.github.io/leadership-training/
