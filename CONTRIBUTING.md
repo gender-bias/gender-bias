@@ -43,4 +43,10 @@ Notice a mistake? Please file any bugs, requests, or questions in our [issue tra
 
 ## Communication channels
 
-Have questions?  Reach out to me on Slack, [readingforbias.slack.com](https://join.slack.com/t/readingforbias/shared_invite/enQtMzU2Mzk2MjY2NDA2LTI1MzNjYzVjYWJlZWNjNDEwNjJkYWI1ZGVlYTZhNWM1YzIzOTAyM2E0MjZlMGM3YzVmZmM5MjJjNThlMDc2NzY), or by email [mollie.marr@gmail.com](mollie.marr@gmail.com).
+Have questions?  Reach out to me on Slack, [readingforbias.slack.com](https://join.slack.com/t/readingforbias/shared_invite/enQtMzU2Mzk2MjY2NDA2LTI1MzNjYzVjYWJlZWNjNDEwNjJkYWI1ZGVlYTZhNWM1YzIzOTAyM2E0MjZlMGM3YzVmZmM5MjJjNThlMDc2NzY), [twitter](http://www.twitter.com/MollieMarr), or by email [mollie.marr@gmail.com](mollie.marr@gmail.com).
+
+# Thank you!
+
+Please add your name and to the contributors list.  I want to be certain that everyone's contribution is recognized!
+
+Thank you!
