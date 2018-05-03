@@ -47,6 +47,6 @@ Have questions?  Reach out to me on Slack, [readingforbias.slack.com](https://jo
 
 # Thank you!
 
-Please add your name and to the contributors list.  I want to be certain that everyone's contribution is recognized!
+Please add your name and to the [contributors list](https://github.com/molliem/gender-bias/blob/master/contributors).  I want to be certain that everyone's contribution is recognized!
 
 Thank you!
