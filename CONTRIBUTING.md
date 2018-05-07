@@ -12,7 +12,7 @@ Implicit gender bias in evaluations negatively impacts women at every stage of h
 
 ## Participation guidelines
 
-This project adheres to [Mozilla Community Participation Guidelines](https://www.mozilla.org/en-US/about/governance/policies/participation/). By participating, you are expected to uphold this code. Please report unacceptable behavior to mollie.marr@gmail.com.
+This project adheres to [Mozilla Community Participation Guidelines](https://www.mozilla.org/en-US/about/governance/policies/participation/). By participating, you are expected to uphold this code. Please report unacceptable behavior to mollie@biascorrect.com.
 
 # How can I contribute?
 
@@ -43,7 +43,7 @@ Notice a mistake? Please file any bugs, requests, or questions in our [issue tra
 
 ## Communication channels
 
-Have questions?  Reach out to me on Slack, [readingforbias.slack.com](https://join.slack.com/t/readingforbias/shared_invite/enQtMzU2Mzk2MjY2NDA2LTI1MzNjYzVjYWJlZWNjNDEwNjJkYWI1ZGVlYTZhNWM1YzIzOTAyM2E0MjZlMGM3YzVmZmM5MjJjNThlMDc2NzY), [twitter](http://www.twitter.com/MollieMarr), or by email [mollie.marr@gmail.com](mollie.marr@gmail.com).
+Have questions?  Reach out to me on Slack, [readingforbias.slack.com](https://join.slack.com/t/readingforbias/shared_invite/enQtMzU2Mzk2MjY2NDA2LTI1MzNjYzVjYWJlZWNjNDEwNjJkYWI1ZGVlYTZhNWM1YzIzOTAyM2E0MjZlMGM3YzVmZmM5MjJjNThlMDc2NzY), [twitter](http://www.twitter.com/MollieMarr), or by email [mollie@biascorrect.com](mollie.marr@gmail.com).
 
 # Thank you!
 
