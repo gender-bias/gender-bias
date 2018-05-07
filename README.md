@@ -57,7 +57,7 @@ The goal of this project is to promote gender equity, so we want to maintain a p
 
 ## Contact me
 
-If you want to report a problem or suggest an improvement, please [open an issue](../../issues) at this github repository.  You can also reach [Mollie](link_Mollie) by email (mollie.marr@gmail.com) or on [twitter](https://twitter.com/MollieMarr).
+If you want to report a problem or suggest an improvement, please [open an issue](../../issues) at this github repository.  You can also reach [Mollie](link_Mollie) by email (mollie@biascorrect.com) or on [twitter](https://twitter.com/MollieMarr).
 
 ## Learn more
 
