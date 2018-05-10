@@ -12,7 +12,7 @@ Implicit gender bias in evaluations negatively impacts women at every stage of h
 
 ## Participation guidelines
 
-This project adheres to [Mozilla Community Participation Guidelines](https://www.mozilla.org/en-US/about/governance/policies/participation/). By participating, you are expected to uphold this code. Please report unacceptable behavior to mollie.marr@gmail.com.
+This project adheres to [Mozilla Community Participation Guidelines](https://www.mozilla.org/en-US/about/governance/policies/participation/). By participating, you are expected to uphold this code. Please report unacceptable behavior to mollie@biascorrect.com.
 
 # How can I contribute?
 
@@ -20,7 +20,11 @@ This project adheres to [Mozilla Community Participation Guidelines](https://www
 
 Unsure where to begin contributing to Reading for Gender Bias? You can start by looking at `good first issue` and `help wanted` issues.
 
+We are using python for our programming language.
+
 You can also take a look at the [Roadmap](https://github.com/molliem/gender-bias/issues/1) to get a sense of where we are going and to start making your own milestones and issues. 
+
+Please reach out if you have questions.  I am new to programming, but will try to answer your questions as completely and quickly as I can.  I am also in class, so if you don't immediately hear from me, it's not you, it is definitely me.
 
 ## How to submit changes
 
@@ -43,7 +47,7 @@ Notice a mistake? Please file any bugs, requests, or questions in our [issue tra
 
 ## Communication channels
 
-Have questions?  Reach out to me on Slack, [readingforbias.slack.com](https://join.slack.com/t/readingforbias/shared_invite/enQtMzU2Mzk2MjY2NDA2LTI1MzNjYzVjYWJlZWNjNDEwNjJkYWI1ZGVlYTZhNWM1YzIzOTAyM2E0MjZlMGM3YzVmZmM5MjJjNThlMDc2NzY), [twitter](http://www.twitter.com/MollieMarr), or by email [mollie.marr@gmail.com](mollie.marr@gmail.com).
+Have questions?  Reach out to me on Slack, [readingforbias.slack.com](https://join.slack.com/t/readingforbias/shared_invite/enQtMzU2Mzk2MjY2NDA2LTI1MzNjYzVjYWJlZWNjNDEwNjJkYWI1ZGVlYTZhNWM1YzIzOTAyM2E0MjZlMGM3YzVmZmM5MjJjNThlMDc2NzY), [twitter](http://www.twitter.com/MollieMarr), or by email [mollie@biascorrect.com](mollie.marr@gmail.com).
 
 # Thank you!
 
