@@ -49,7 +49,7 @@ So glad you asked!  WooHoo!
 
 Help in any way you can!
 
-We need expertise in coding, web design, program development, documentation, and technical writing.
+We need expertise in coding, web design, program development, documentation, and technical writing.  We're using Python for the text analysis. I've created issues around different rules/signals to search for in letters.  Example letters can be found [here](https://github.com/molliem/gender-bias/tree/master/example_letters).
 
 If you think you can help in any of these areas or in an area I haven't thought of yet, please check out our [contributors' guidelines](CONTRIBUTING.md) and our [roadmap](https://github.com/molliem/gender-bias/issues/1).
 
