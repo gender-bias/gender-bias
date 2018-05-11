@@ -16,3 +16,10 @@ def test_can_tokenize_into_wordlist():
         words = word_tokenize(stream.read())
         assert isinstance(words, list)
         assert len(words) > 0
+
+porter = nltk.PorterStemmer()
+
+def test_stemming():
+    words = ['strangely']
+    stemmed = [porter.stem(w) for w in words]
+    assert stemmed == ['strang']
