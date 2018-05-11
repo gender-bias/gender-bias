@@ -1,0 +1,71 @@
+<html>
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title></title>
+	<style type="text/css">#container {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: normal;
+    width: 810px;
+    margin: 0 auto;
+}
+#h4 {
+	font-size: 16px;
+	font-weight: bold;
+
+{
+    box-sizing: border-box;
+}
+
+
+.column {
+    float: left;
+    width: 50%;
+    padding: 10px;
+    height: 300px; 
+}
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+	</style>
+</head>
+<body>
+<p style="font-size: 20px; font-weight: bold; clear: both;">About</p>
+
+<p>&ldquo;Reading for Gender Bias&rdquo; is a web-based text analysis tool that scans and reveals language bias associated with evaluations and letters of recommendation written for trainees and applicants. It provides a summary of feedback to authors on how they can remove bias from their letters. A friend described it as &ldquo;auto-correct for gender bias.&rdquo; The goal is to start with a gender bias tool and then expand to other types of bias.</p>
+
+<p>Check out the research that inspired this project <a href="http://www.biascorrect.com/research.htm">here</a>.</p>
+
+<p>If you&#39;d like to learn more, check out our <a href="https://github.com/molliem/gender-bias">GitHub repo</a>.</p>
+<p></p>
+<FORM action="/cgi-bin/echo.py" method="post">
+	<table align="left" border="0" cellpadding="1" cellspacing="1" style="width:1400px;">
+	<tbody>
+		<tr>
+			<td style="width: 700px; vertical-align:top">
+			<h3><strong>How to use it</strong></h3>
+
+			<p>Paste the text from your evaluation or letter of recommendation in the box below.&nbsp;<br />
+			(Here&#39;s a <a href="http://www.biascorrect.com/mockup.htm">mock-up design</a> for the site)</p>
+
+			<p><textarea cols="100" name="message" rows="30"></textarea></p>
+
+			<p><input name="submit" type="submit" value="submit" /></p>
+
+			<p></p>
+			</td>
+			<td style="width: 700px; vertical-align:top">
+			<h3>Summary</h3>
+
+			<p>Consider adding or changing . . .&nbsp;</p>
+
+			<ul>
+				<li>Result text will go here</li>
+			</ul>
+			</td>
+		</tr>
+	</tbody>
+</table>
+</FORM>
+</body>
+</html>
