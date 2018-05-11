@@ -1,7 +1,7 @@
 import nltk
 
-examples = dict(m="../example_letters/letterofRecM",
-                f="../example_letters/letterofRec_W")
+examples = dict(m=("../example_letters/letterofRecM", 13),
+                f=("../example_letters/letterofRec_W", 26))
 
 def load_text(filename):
     with open(filename, 'r') as f:
@@ -15,16 +15,21 @@ def words_from_text(text):
 
 ##########
 
-def test_can_read_examples():
-    for file in examples.values():
-        with open(file, 'r') as stream:
-            assert stream.readable()
+from pytest import fixture
+
+@fixture(params = examples.values())
+def example_doc(request):
+    return request.param
+
+def test_can_read_examples(example_doc):
+    with open(example_doc[0], 'r') as stream:
+        assert stream.readable()
 
 nltk.download('punkt')
 nltk.download('wordnet')
 
-def test_words_from_text():
-    t = load_text(examples['m'])
+def test_words_from_text(example_doc):
+    t = load_text(example_doc[0])
     words = words_from_text(t)
     assert isinstance(words, list)
     assert len(words) > 0
@@ -44,9 +49,9 @@ def test_lemmatizing():
     lemmaed = [wnl.lemmatize(w) for w in stemmed]
     #assert lemmaed == ['strange']
 
-def test_sentence():
-    t = load_text(examples['m'])
+def test_sentence(example_doc):
+    t = load_text(example_doc[0])
     s = sentences_from_text(t)
     for ss in s:
         assert "\n" not in ss
-    assert len(s) == 13
+    assert len(s) == example_doc[1]
