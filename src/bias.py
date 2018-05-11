@@ -10,6 +10,9 @@ def load_text(filename):
 def sentences_from_text(text):
     return [s.replace('\n',' ') for s in nltk.sent_tokenize(text)]
 
+def words_from_text(text):
+    return nltk.word_tokenize(text)
+
 ##########
 
 def test_can_read_examples():
@@ -17,13 +20,12 @@ def test_can_read_examples():
         with open(file, 'r') as stream:
             assert stream.readable()
 
-from nltk import word_tokenize
 nltk.download('punkt')
 nltk.download('wordnet')
 
-def test_can_tokenize_into_wordlist():
+def test_words_from_text():
     t = load_text(examples['m'])
-    words = word_tokenize(t)
+    words = words_from_text(t)
     assert isinstance(words, list)
     assert len(words) > 0
 
