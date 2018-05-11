@@ -1,7 +1,11 @@
 import nltk
+nltk.download('punkt')
+nltk.download('wordnet')
+nltk.download('averaged_perceptron_tagger')
 
-examples = dict(m=("../example_letters/letterofRecM", 13),
-                f=("../example_letters/letterofRec_W", 26))
+# filename, assertions - number-of-sentences, commas
+examples = dict(m=("../example_letters/letterofRecM", 13, 12),
+                f=("../example_letters/letterofRec_W", 26, 29))
 
 def load_text(filename):
     with open(filename, 'r') as f:
@@ -12,6 +16,14 @@ def sentences_from_text(text):
 
 def words_from_text(text):
     return nltk.word_tokenize(text)
+
+def categorize(text):
+    words = words_from_text(text)
+    tagged = nltk.pos_tag(words)
+    categories = {}
+    for type in {t[1] for t in tagged}:
+        categories[type] = [t[0] for t in tagged if t[1] == type]
+    return categories
 
 ##########
 
@@ -24,9 +36,6 @@ def example_doc(request):
 def test_can_read_examples(example_doc):
     with open(example_doc[0], 'r') as stream:
         assert stream.readable()
-
-nltk.download('punkt')
-nltk.download('wordnet')
 
 def test_words_from_text(example_doc):
     t = load_text(example_doc[0])
@@ -55,3 +64,8 @@ def test_sentence(example_doc):
     for ss in s:
         assert "\n" not in ss
     assert len(s) == example_doc[1]
+
+def test_categorization(example_doc):
+    t = load_text(example_doc[0])
+    c = categorize(t)
+    assert len(c[',']) == example_doc[2]
