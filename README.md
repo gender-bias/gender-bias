@@ -49,7 +49,7 @@ So glad you asked!  WooHoo!
 
 Help in any way you can!
 
-We need expertise in coding, web design, program development, documentation, and technical writing.
+We need expertise in coding, web design, program development, documentation, and technical writing.  We're using Python for the text analysis. I've created issues around different rules/signals to search for in letters.  Example letters can be found [here](https://github.com/molliem/gender-bias/tree/master/example_letters).
 
 If you think you can help in any of these areas or in an area I haven't thought of yet, please check out our [contributors' guidelines](CONTRIBUTING.md) and our [roadmap](https://github.com/molliem/gender-bias/issues/1).
 
@@ -106,6 +106,7 @@ Studies on gender bias show that letters/evaluations written for women are:
 * Axelson RD, Solow CM, Ferguson KJ, Cohen MB.  Assessing implicit gender bias in Medical Student Performance Evaluations. Eval Health Prof. 2010 Sep;33(3):365-85.
 * Eagly, A.H.; Karau, S.J., "Role congruity theory of prejudice toward female leaders," Psychological Review 109, no. 3 (July 2002): 573-597.; Ridgeway, 2002.
 * Foschi M. Double standards for competence: theory and research. Ann Rev Soc. 2000;26:21–42. 
+* Gaucher, D., Friesen, J., & Kay, A. C. (2011, March 7). Evidence That Gendered Wording in Job Advertisements Exists and Sustains Gender Inequality. Journal of Personality and Social Psychology. 
 * Hirshfield LE. ‘‘She’s not good with crying’’: the effect of gender expectations on graduate students’ assessments of their principal investigators. Gender Educ. 2014;26(6):601–617. 
 * Madera, J. M., Hebl, M. R., & Martin, R. C. (2009). Gender and letters of recommendation for academia: Agentic and communal differences. Journal of Applied Psychology, 94(6), 1591.
 * Ross DA, Boatright D, Nunez-Smith M, Jordan A, Chekroud A, Moore EZ (2017) Differences in words used to describe racial and gender groups in Medical Student Performance Evaluations. PLoS ONE 12(8): e0181659.
