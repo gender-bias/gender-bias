@@ -25,6 +25,9 @@ def categorize(text):
         categories[type] = [t[0] for t in tagged if t[1] == type]
     return categories
 
+def stem(wordlist):
+    return [porter.stem(w) for w in wordlist]
+
 ##########
 
 from pytest import fixture
@@ -45,10 +48,10 @@ def test_words_from_text(example_doc):
 
 porter = nltk.PorterStemmer()
 
-def test_stemming():
-    words = ['strangely']
-    stemmed = [porter.stem(w) for w in words]
-    assert stemmed == ['strang']
+def test_stemming(example_doc):
+    t = load_text(example_doc[0])
+    stemmed = stem(words_from_text(t))
+    assert sum([len(x) for x in words_from_text(t)]) > sum([len(x) for x in stemmed])
 
 wnl = nltk.WordNetLemmatizer()
 

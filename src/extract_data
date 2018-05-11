@@ -7,6 +7,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('document', help="document to analyze")
 parser.add_argument('-s', help="list sentences", action='store_true')
 parser.add_argument('-w', help="list words", action='store_true')
+parser.add_argument('-ws', help="list words (stemmed)", action='store_true')
 parser.add_argument('-c', help="list categories", action='store_true')
 
 if __name__ == "__main__":
@@ -16,6 +17,8 @@ if __name__ == "__main__":
         print("\n".join(gender_bias.sentences_from_text(text)))
     if options.w:
         print(gender_bias.words_from_text(text))
+    if options.ws:
+        print(gender_bias.stem(gender_bias.words_from_text(text)))
     if options.c:
         for type, words in gender_bias.categorize(text).items():
             print(type, words)
