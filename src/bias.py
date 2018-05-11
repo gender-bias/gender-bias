@@ -7,6 +7,9 @@ def load_text(filename):
     with open(filename, 'r') as f:
         return f.read()
 
+def sentences_from_text(text):
+    return [s.replace('\n',' ') for s in nltk.sent_tokenize(text)]
+
 ##########
 
 def test_can_read_examples():
@@ -38,3 +41,10 @@ def test_lemmatizing():
     stemmed = [porter.stem(w) for w in words]
     lemmaed = [wnl.lemmatize(w) for w in stemmed]
     #assert lemmaed == ['strange']
+
+def test_sentence():
+    t = load_text(examples['m'])
+    s = sentences_from_text(t)
+    for ss in s:
+        assert "\n" not in ss
+    assert len(s) == 13
