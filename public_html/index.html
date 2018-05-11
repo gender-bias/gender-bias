@@ -10,11 +10,8 @@
 #h4 {
 	font-size: 16px;
 	font-weight: bold;
-
-{
     box-sizing: border-box;
 }
-
 
 .column {
     float: left;
@@ -28,9 +25,33 @@
     clear: both;
 }
 	</style>
+	
 </head>
+
 <body>
-<p style="font-size: 20px; font-weight: bold; clear: both;">About</p>
+	<script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+	<script>
+$(document).ready(function(){
+
+	$("#form1").submit(function(e) {
+
+	var url = "/cgi-bin/echo.py"; // the script where you handle the form input.
+
+	$.ajax({
+		type: "POST",
+		url: url,
+		data: $("#form1").serialize(), // serializes the form's elements.
+		success: function(data)
+		{
+			$("#results").html(data);
+		}
+		});
+
+	e.preventDefault(); // avoid to execute the actual submit of the form.
+	});
+});
+	</script>
+	<p style="font-size: 20px; font-weight: bold; clear: both;">About</p>
 
 <p>&ldquo;Reading for Gender Bias&rdquo; is a web-based text analysis tool that scans and reveals language bias associated with evaluations and letters of recommendation written for trainees and applicants. It provides a summary of feedback to authors on how they can remove bias from their letters. A friend described it as &ldquo;auto-correct for gender bias.&rdquo; The goal is to start with a gender bias tool and then expand to other types of bias.</p>
 
@@ -38,7 +59,7 @@
 
 <p>If you&#39;d like to learn more, check out our <a href="https://github.com/molliem/gender-bias">GitHub repo</a>.</p>
 <p></p>
-<FORM action="/cgi-bin/echo.py" method="post">
+<FORM id="form1">
 	<table align="left" border="0" cellpadding="1" cellspacing="1" style="width:1400px;">
 	<tbody>
 		<tr>
@@ -62,6 +83,7 @@
 			<ul>
 				<li>Result text will go here</li>
 			</ul>
+			<div id="results"></div>
 			</td>
 		</tr>
 	</tbody>
