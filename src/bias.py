@@ -1,6 +1,13 @@
+import nltk
 
 examples = dict(m="../example_letters/letterofRecM",
                 f="../example_letters/letterofRec_W")
+
+def load_text(filename):
+    with open(filename, 'r') as f:
+        return f.read()
+
+##########
 
 def test_can_read_examples():
     for file in examples.values():
@@ -8,15 +15,14 @@ def test_can_read_examples():
             assert stream.readable()
 
 from nltk import word_tokenize
-import nltk
 nltk.download('punkt')
 nltk.download('wordnet')
 
 def test_can_tokenize_into_wordlist():
-    with open(examples['m'], 'r') as stream:
-        words = word_tokenize(stream.read())
-        assert isinstance(words, list)
-        assert len(words) > 0
+    t = load_text(examples['m'])
+    words = word_tokenize(t)
+    assert isinstance(words, list)
+    assert len(words) > 0
 
 porter = nltk.PorterStemmer()
 
