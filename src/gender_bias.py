@@ -57,8 +57,8 @@ porter = nltk.PorterStemmer()
 
 def test_stemming(example_doc):
     t = Document(example_doc[0])
-    stemmed = t.stemmed_words()
-    assert sum([len(x) for x in t.words()]) > sum([len(x) for x in stemmed])
+    assert (sum([len(x) for x in t.words()]) >
+            sum([len(x) for x in t.stemmed_words()]))
 
 wnl = nltk.WordNetLemmatizer()
 
