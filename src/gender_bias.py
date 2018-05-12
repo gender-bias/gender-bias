@@ -1,9 +1,5 @@
 import nltk
 
-# filename, assertions - number-of-sentences, commas
-examples = dict(m=("../example_letters/letterofRecM", 13, 12),
-                f=("../example_letters/letterofRec_W", 26, 29))
-
 class Document:
     instances_exist = False
     def __init__(self, filename):
@@ -36,6 +32,10 @@ class Document:
         return [porter.stem(w) for w in words]
 
 ##########
+
+# filename, assertions - number-of-sentences, commas
+examples = dict(m=("../example_letters/letterofRecM", 13, 12),
+                f=("../example_letters/letterofRec_W", 26, 29))
 
 from pytest import fixture
 
