@@ -1,16 +1,21 @@
 import nltk
-nltk.download('punkt')
-nltk.download('wordnet')
-nltk.download('averaged_perceptron_tagger')
 
 # filename, assertions - number-of-sentences, commas
 examples = dict(m=("../example_letters/letterofRecM", 13, 12),
                 f=("../example_letters/letterofRec_W", 26, 29))
 
 class Document:
+    instances_exist = False
     def __init__(self, filename):
         with open(filename, 'r') as f:
             self._text = f.read()
+
+        # These are cached but can delay loading, so only import here
+        if not Document.instances_exist:
+            Document.instances_exist = True
+            nltk.download('punkt')
+            nltk.download('wordnet')
+            nltk.download('averaged_perceptron_tagger')
 
     def sentences(self):
         return [s.replace('\n',' ') for s in nltk.sent_tokenize(self._text)]
