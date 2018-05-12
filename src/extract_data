@@ -14,11 +14,11 @@ if __name__ == "__main__":
     options = parser.parse_args()
     text = Document(options.document)
     if options.s:
-        print("\n".join(text.sentences_from_text()))
+        print("\n".join(text.sentences()))
     if options.w:
-        print(text.words_from_text())
+        print(text.words())
     if options.ws:
-        print(text.stem())
+        print(text.stemmed_words())
     if options.c:
-        for type, words in text.categorize().items():
+        for type, words in text.words_by_part_of_speech().items():
             print(type, words)
