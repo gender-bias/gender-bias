@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import gender_bias
+from gender_bias import Document
 import argparse
 
 parser = argparse.ArgumentParser()
@@ -12,13 +12,13 @@ parser.add_argument('-c', help="list categories", action='store_true')
 
 if __name__ == "__main__":
     options = parser.parse_args()
-    text = gender_bias.load_text(options.document)
+    text = Document(options.document)
     if options.s:
-        print("\n".join(gender_bias.sentences_from_text(text)))
+        print("\n".join(text.sentences_from_text()))
     if options.w:
-        print(gender_bias.words_from_text(text))
+        print(text.words_from_text())
     if options.ws:
-        print(gender_bias.stem(gender_bias.words_from_text(text)))
+        print(text.stem())
     if options.c:
-        for type, words in gender_bias.categorize(text).items():
+        for type, words in text.categorize().items():
             print(type, words)
