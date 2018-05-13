@@ -20,7 +20,7 @@ This project adheres to [Mozilla Community Participation Guidelines](https://www
 
 Unsure where to begin contributing to Reading for Gender Bias? You can start by looking at `good first issue` and `help wanted` issues.
 
-We are using python for our programming language.
+We are using python for our programming language.  There is a folder of letters for texting code [here](https://github.com/molliem/gender-bias/tree/master/example_letters).
 
 You can also take a look at the [Roadmap](https://github.com/molliem/gender-bias/issues/1) to get a sense of where we are going and to start making your own milestones and issues. 
 
