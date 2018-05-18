@@ -2,10 +2,13 @@
 
 import os
 import nltk
+from contextlib import redirect_stdout
 
-nltk.download('punkt')
-nltk.download('wordnet')
-nltk.download('averaged_perceptron_tagger')
+
+with redirect_stdout(open(os.devnull, "w")):
+    nltk.download('punkt')
+    nltk.download('wordnet')
+    nltk.download('averaged_perceptron_tagger')
 
 class Document:
 
