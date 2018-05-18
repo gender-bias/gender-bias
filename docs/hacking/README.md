@@ -105,7 +105,7 @@ All done! Let's add our `Detector` to the list of detectors in the main module. 
 ```python
 ...
 from .personal_life import PersonalLifeDetector
-from .amphian import AmphibianDetector                  # ⭐
+from .amphibian import AmphibianDetector                  # ⭐
 
 ALL_DETECTORS = [
     ...
