@@ -1,0 +1,28 @@
+#!/usr/bin/env python3
+import argparse
+
+from genderbias import ALL_DETECTORS, Document
+
+
+def main():
+    parser = argparse.ArgumentParser(
+        description="CLI for gender-bias detection"
+    )
+    parser.add_argument(
+        "--file", dest="file",
+        help="The file to check"
+    )
+
+    args = parser.parse_args()
+
+    doc = Document(args.file)
+    flags = []
+    for detector in ALL_DETECTORS:
+        flags += detector().flag_words(doc)
+
+    print("\n".join(str(f) for f in flags))
+
+
+
+if __name__ == "__main__":
+    main()
