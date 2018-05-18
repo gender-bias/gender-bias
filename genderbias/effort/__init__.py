@@ -6,9 +6,16 @@ from genderbias.detector import Detector, Flag, Issue
 _dir = os.path.dirname(__file__)
 
 
-ACCOMPLISHMENT_WORDS = open(
+ACCOMPLISHMENT_WORDS = [
+    w.strip()
+    for w in open(
     _dir + "/accomplishment_words.txt", 'r').readlines()
-EFFORT_WORDS = open(_dir + "/effort_words.txt", 'r').readlines()
+]
+
+EFFORT_WORDS = [
+    w.strip()
+    for w in open(_dir + "/effort_words.txt", 'r').readlines()
+]
 
 
 class EffortDetector(Detector):
@@ -50,12 +57,15 @@ class EffortDetector(Detector):
             len(accomplishment_flags) is 0 or
             len(effort_flags) / len(accomplishment_flags) > 1.2  # TODO: Arbitrary!
         ):
-            effort_flags = [
-                Flag(0, 0, Issue(
-                    "This document has a high ratio ({}:{}) of words suggesting effort to words suggesting concrete accomplishment.".format(
-                        len(effort_flags), len(accomplishment_flags)
-                    )
-                ))
-            ] + effort_flags
+            if len(accomplishment_flags) == 0 and len(effort_flags) == 0:
+                pass
+            else:
+                effort_flags = [
+                    Flag(0, 0, Issue(
+                        "This document has a high ratio ({}:{}) of words suggesting effort to words suggesting concrete accomplishment.".format(
+                            len(effort_flags), len(accomplishment_flags)
+                        )
+                    ))
+                ] + effort_flags
 
         return effort_flags
