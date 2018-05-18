@@ -13,7 +13,7 @@ EFFORT_WORDS = open(_dir + "/effort_words.txt", 'r').readlines()
 
 class EffortDetector(Detector):
 
-    def flag_words(self, doc: 'Document'):
+    def get_flags(self, doc: 'Document'):
         """
         Flag the text based upon effort vs accomplishment.
         """

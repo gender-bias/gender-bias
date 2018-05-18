@@ -51,7 +51,7 @@ class Detector:
         pass
 
     @abstractmethod
-    def flag_words(self, doc: 'Document'):
+    def get_flags(self, doc: 'Document'):
         """
         Returns a list of flags for a document.
         """

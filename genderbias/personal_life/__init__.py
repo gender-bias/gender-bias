@@ -19,7 +19,7 @@ PERSONAL_LIFE_TERMS = [
 
 class PersonalLifeDetector(Detector):
 
-    def flag_words(self, doc: 'Document'):
+    def get_flags(self, doc: 'Document'):
         """
         Flag
         """
