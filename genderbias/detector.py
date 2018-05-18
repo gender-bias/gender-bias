@@ -32,9 +32,11 @@ class Issue:
 
 class Flag:
 
-    def __init__(self, start, stop, issue):
+    def __init__(self, start: int, stop: int, issue: 'Issue'):
         self.start = start
         self.stop = stop
+        if not isinstance(issue, Issue):
+            raise ValueError("Issue must be of type 'genderbias.Issue' but got {}".format(type(issue)))
         self.issue = issue
 
     def __str__(self):
