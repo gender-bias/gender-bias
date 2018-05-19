@@ -9,7 +9,7 @@ def main():
         description="CLI for gender-bias detection"
     )
     parser.add_argument(
-        "--file", dest="file",
+        "--file", "-f", dest="file", required=True,
         help="The file to check"
     )
 
