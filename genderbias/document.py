@@ -36,6 +36,7 @@ class Document:
         # Set the caches as None
         self._cached_sentences = None
         self._cached_words = None
+        self._cached_words_with_indices = None
         self._cached_words_by_pos = None
         self._cached_stemmed_words = None
 
@@ -84,6 +85,27 @@ class Document:
         if self._use_cache:
             self._cached_words = result
         return result
+
+    def words_with_indices(self):
+        """
+        Compute a list of words, with beginning and end indices
+
+        Returns:
+            List[Tuple[str, int, int]]
+        """
+        # Default to cache, if available:
+        if self._use_cache and self._cached_words_with_indices:
+            return self._cached_words_with_indices
+
+        offset = 0
+        token_indices = []
+        for word in self.words():
+            offset = self._text.find(word, offset)
+            token_indices.append((word, offset, offset + len(word)))
+            offset += len(word)
+        if self._use_cache:
+            self._caached_words = token_indices
+        return token_indices
 
     def words_by_part_of_speech(self):
         """
