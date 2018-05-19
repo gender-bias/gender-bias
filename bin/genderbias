@@ -18,7 +18,7 @@ def main():
     doc = Document(args.file)
     flags = []
     for detector in ALL_DETECTORS:
-        flags += detector().flag_words(doc)
+        flags += detector().get_flags(doc)
 
     print("\n".join(str(f) for f in flags))
 
