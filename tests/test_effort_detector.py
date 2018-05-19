@@ -2,13 +2,13 @@ from genderbias.effort import EffortDetector
 from genderbias.document import Document
 
 BAD_DOCUMENTS = [
-    # """NAME always tried her best.""",
+    """NAME always tried her best, was patient, and had great insight.""",
     """Everyone knows that NAME is persistent.""",
 ]
 
 GOOD_DOCUMENTS = [
-    """NAME was professional and courteous.""",
-    """It is always a pleasure working with NAME.""",
+    """NAME was professional and innovative.""",
+    """NAME consistently delivered results.""",
 ]
 
 

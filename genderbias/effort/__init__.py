@@ -57,8 +57,13 @@ class EffortDetector(Detector):
             len(accomplishment_flags) is 0 or
             len(effort_flags) / len(accomplishment_flags) > 1.2  # TODO: Arbitrary!
         ):
-            if len(accomplishment_flags) == 0 and len(effort_flags) == 0:
-                pass
+            # Avoid divide-by-zero errors
+            if len(accomplishment_flags) == 0:
+                effort_flags = [
+                    Flag(0, 0, Issue(
+                        "This document has too few words about concrete accomplishment."
+                    ))
+                ] + effort_flags
             else:
                 effort_flags = [
                     Flag(0, 0, Issue(
