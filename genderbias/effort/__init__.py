@@ -1,5 +1,17 @@
 #!/usr/bin/env python3
 
+"""
+Check for statements that pertain to effort, rather than accomplishment.
+
+Letters for women are more likely to highlight effort (she is hard-working)
+instead of highlighting accomplishments (her research is groundbreaking).
+
+Goal: Develop code that can read text for effort statements. If the text
+includes more effort statements, than accomplishment statements; return a
+summary that directs the author to add statements related to accomplishment.
+"""
+
+
 import os
 from genderbias.detector import Detector, Flag, Issue
 
@@ -19,10 +31,30 @@ EFFORT_WORDS = [
 
 
 class EffortDetector(Detector):
+    """
+    This detector checks for words that relate to effort versus concrete
+    accomplishments.
+
+    Links:
+        https://github.com/molliem/gender-bias/issues/8
+        http://journals.sagepub.com/doi/pdf/10.1177/0957926503014002277
+
+    """
 
     def get_flags(self, doc: 'Document'):
         """
         Flag the text based upon effort vs accomplishment.
+
+        Also adds a final flag if there are NO words about accomplishment,
+        or adds a final flag if the ratio of effort to accomplishment words
+        is particularly low.
+
+        Arguments:
+            doc (Document): The document to check
+
+        Returns:
+            List[Flag]
+
         """
         token_indices = []
         effort_flags = []
