@@ -41,12 +41,9 @@ def identify_publications(doc: Document) -> Dict[str, float]:
     # TODO: Smart quotes and single quotes
     rxp = re.compile('"[^"]+"')
     for match in re.findall(rxp, doc._text):
-        print(match)
         if match not in potential_publications:
             potential_publications[match] = 0.
         potential_publications[match] += 0.25
-
-    print(potential_publications)
 
     return potential_publications
 
@@ -98,8 +95,7 @@ class PublicationDetector(Detector):
         # with a probability of 50%, then we could consider that a mention of
         # one single publication.
         pub_count = sum(identify_publications(doc).values())
-        print(pub_count)
-        if pub_count < 0.5:
+        if pub_count < self.min_publications:
             all_flags.append(Flag(
                 0, 0,
                 Issue(
