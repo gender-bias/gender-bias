@@ -12,8 +12,8 @@ wnl = nltk.WordNetLemmatizer()
 example_dir = os.path.dirname(__file__) + "/../example_letters/"
 
 # filename, assertions = number-of-sentences, commas
-examples = dict(m=dict(file=example_dir + "letterofRecM", sentences=13, commas=12),
-                f=dict(file=example_dir + "letterofRecW", sentences=26, commas=29))
+examples = dict(m=dict(file=example_dir + "letterofRecM", sentences=13, commas=12, words=446),
+                f=dict(file=example_dir + "letterofRecW", sentences=26, commas=29, words=693))
 
 
 @fixture(params=examples.values())
@@ -29,7 +29,7 @@ def test_can_read_examples(example_doc):
 def test_words(example_doc):
     words = example_doc['document'].words()
     assert isinstance(words, list)
-    assert len(words) > 0
+    assert len(words) == example_doc['words']
 
 
 def test_stemming(example_doc):
