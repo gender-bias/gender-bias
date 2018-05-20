@@ -12,8 +12,8 @@ wnl = nltk.WordNetLemmatizer()
 example_dir = os.path.dirname(__file__) + "/../example_letters/"
 
 # filename, assertions = number-of-sentences, commas
-examples = dict(m=(example_dir + "letterofRecM", 13, 12),
-                f=(example_dir + "letterofRecW", 26, 29))
+examples = dict(m=dict(file=example_dir + "letterofRecM", sentences=13, commas=12),
+                f=dict(file=example_dir + "letterofRecW", sentences=26, commas=29))
 
 
 @fixture(params=examples.values())
@@ -21,19 +21,19 @@ def example_doc(request):
     return request.param
 
 def test_can_read_examples(example_doc):
-    with open(example_doc[0], 'r') as stream:
+    with open(example_doc['file'], 'r') as stream:
         assert stream.readable()
 
 
 def test_words(example_doc):
-    t = Document(example_doc[0])
+    t = Document(example_doc['file'])
     words = t.words()
     assert isinstance(words, list)
     assert len(words) > 0
 
 
 def test_stemming(example_doc):
-    t = Document(example_doc[0])
+    t = Document(example_doc['file'])
     assert (sum([len(x) for x in t.words()]) >
             sum([len(x) for x in t.stemmed_words()]))
 
@@ -46,14 +46,14 @@ def test_stemming(example_doc):
 
 
 def test_sentence(example_doc):
-    t = Document(example_doc[0])
+    t = Document(example_doc['file'])
     s = t.sentences()
     for ss in s:
         assert "\n" not in ss
-    assert len(s) == example_doc[1]
+    assert len(s) == example_doc['sentences']
 
 
 def test_words_by_part_of_speech(example_doc):
-    t = Document(example_doc[0])
+    t = Document(example_doc['file'])
     c = t.words_by_part_of_speech()
-    assert len(c[',']) == example_doc[2]
+    assert len(c[',']) == example_doc['commas']
