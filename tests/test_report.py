@@ -1,21 +1,25 @@
 from genderbias.detector import Report, Issue, Flag
 
+from pytest import fixture
+
 report_name = "Text Analyzer"
 summary = "[summary]"
+flag = Flag(0, 10, Issue(report_name, "A" "B"))
 
-def test_report_str_no_flags():
-    r = Report(report_name)
-    assert str(r) == report_name
 
-f = Flag(0, 10, Issue(report_name, "A" "B"))
+@fixture
+def report():
+    return Report(report_name)
 
-def test_report_str_with_one_flag():
-    r = Report(report_name)
-    r.add_flag(f)
+
+def test_report_str_no_flags(report):
+    assert str(report) == report_name
+
+def test_report_str_with_one_flag(report):
+    report.add_flag(flag)
     expected = report_name + "\n [0-10]: " + report_name + ": AB"
-    assert str(r) == expected
+    assert str(report) == expected
 
-def test_report_str_no_flags_with_summary():
-    r = Report(report_name)
-    r.set_summary(summary)
-    assert str(r) == report_name + "\n" + " SUMMARY: " + summary
+def test_report_str_no_flags_with_summary(report):
+    report.set_summary(summary)
+    assert str(report) == report_name + "\n" + " SUMMARY: " + summary
