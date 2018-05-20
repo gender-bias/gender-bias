@@ -13,11 +13,12 @@ def report():
 
 
 def test_report_str_no_flags(report):
-    assert str(report) == report_name
+    assert str(report) == report_name + "\n" + " SUMMARY: " + "[None available]"
 
 def test_report_str_with_one_flag(report):
     report.add_flag(flag)
-    expected = report_name + "\n [0-10]: " + report_name + ": AB"
+    expected = (report_name + "\n [0-10]: " + report_name + ": AB" + "\n" +
+                " SUMMARY: " + "[None available]")
     assert str(report) == expected
 
 def test_report_str_no_flags_with_summary(report):

@@ -115,8 +115,7 @@ class Report:
         text = [self._name]
         if self._flags:
             text += [" " + str(flag) for flag in self._flags]
-        if self._summary:
-            text.append(" SUMMARY: " + self._summary)
+        text.append(" SUMMARY: " + (self._summary if self._summary else "[None available]"))
         return "\n".join(text)
 
     def add_flag(self, flag):
