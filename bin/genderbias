@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 import argparse
 
+import sys
+
 from genderbias import ALL_DETECTORS, Document
 
 
@@ -9,13 +11,19 @@ def main():
         description="CLI for gender-bias detection"
     )
     parser.add_argument(
-        "--file", "-f", dest="file", required=True,
+        "--file", "-f", dest="file", required=False,
         help="The file to check"
     )
 
     args = parser.parse_args()
 
-    doc = Document(args.file)
+    if not args.file:
+        # If no file is passed, then read from stdin
+        doc = Document(sys.stdin.read())
+    else:
+        # Otherwise, load the file
+        doc = Document(args.file)
+
     flags = []
     for detector in ALL_DETECTORS:
         flags += detector().get_flags(doc)
