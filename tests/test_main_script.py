@@ -1,4 +1,5 @@
 from subprocess import Popen, PIPE
+import os
 from pytest import fixture
 
 script = ["genderbias"]
@@ -16,6 +17,9 @@ def output_with_options(options, feed_in=""):
     popen = Popen(script + options, stdin=PIPE, stdout=PIPE, universal_newlines=True)
     return popen.communicate(feed_in)[0]
 
+
+def test_meta_ensure_examples_exist(example):
+    assert os.path.isfile(example)
 
 def test_script_help():
     help_text = 'usage: genderbias [-h] [--file FILE]\n\nCLI for gender-bias detection\n\noptional arguments:\n  -h, --help            show this help message and exit\n  --file FILE, -f FILE  The file to check\n'
