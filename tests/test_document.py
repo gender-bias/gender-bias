@@ -32,6 +32,19 @@ def test_words(example_doc):
     assert len(words) == example_doc['words']
 
 
+def test_words_with_indices(example_doc):
+    words_with_indices = example_doc['document'].words_with_indices()
+    assert len(words_with_indices) == example_doc['words']
+    latest_start = -1
+    latest_stop = 0
+    for word, start, stop in words_with_indices:
+        assert stop > start
+        assert stop > latest_stop
+        latest_stop = stop
+        assert start > latest_start
+        latest_start = start
+
+
 def test_stemming(example_doc):
     assert (sum([len(x) for x in example_doc['document'].words()]) >
             sum([len(x) for x in example_doc['document'].stemmed_words()]))
