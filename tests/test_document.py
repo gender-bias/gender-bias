@@ -9,11 +9,11 @@ from genderbias.document import Document
 porter = nltk.PorterStemmer()
 wnl = nltk.WordNetLemmatizer()
 
-_dir = os.path.dirname(__file__)
+example_dir = os.path.dirname(__file__) + "/../example_letters/"
 
-# filename, assertions - number-of-sentences, commas
-examples = dict(m=(_dir + "/../example_letters/letterofRecM", 13, 12),
-                f=(_dir + "/../example_letters/letterofRecW", 26, 29))
+# filename, assertions = number-of-sentences, commas
+examples = dict(m=(example_dir + "letterofRecM", 13, 12),
+                f=(example_dir + "letterofRecW", 26, 29))
 
 
 @fixture(params=examples.values())
