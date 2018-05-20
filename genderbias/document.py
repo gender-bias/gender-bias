@@ -10,6 +10,20 @@ with redirect_stdout(open(os.devnull, "w")):
     nltk.download('wordnet')
     nltk.download('averaged_perceptron_tagger')
 
+def cached(method):
+    """
+    Method decorator for the Document class, caching results if enabled
+    """
+    result = {}
+    def wrapper(*args):
+        if not args[0]._use_cache:
+            return method(*args)
+        params = tuple(args)
+        if params not in result:
+            result[params] = method(*args)
+        return result[params]
+    return wrapper
+
 class Document:
     """
     Base class for Document, a datatype that stores text and enables
@@ -33,12 +47,6 @@ class Document:
         if 'no_cache' in kwargs:
             self._use_cache = not kwargs['no_cache']
 
-        # Set the caches as None
-        self._cached_sentences = None
-        self._cached_words = None
-        self._cached_words_by_pos = None
-        self._cached_stemmed_words = None
-
         # Try to load the document from disk.
         if not os.path.exists(document):
             self._text = document
@@ -47,6 +55,7 @@ class Document:
             with open(document, 'r') as f:
                 self._text = f.read()
 
+    @cached
     def sentences(self):
         """
         Compute a list of sentences.
@@ -57,15 +66,9 @@ class Document:
             List[str]
 
         """
-        # Default to cache, if available:
-        if self._use_cache and self._cached_sentences:
-            return self._cached_sentences
+        return [s.replace('\n', ' ') for s in nltk.sent_tokenize(self._text)]
 
-        result = [s.replace('\n', ' ') for s in nltk.sent_tokenize(self._text)]
-        if self._use_cache:
-            self._cached_sentences = result
-        return result
-
+    @cached
     def words(self):
         """
         Compute a list of words from this Document.
@@ -76,15 +79,25 @@ class Document:
             List[str]
 
         """
-        # Default to cache, if available:
-        if self._use_cache and self._cached_words:
-            return self._cached_words
+        return nltk.word_tokenize(self._text)
 
-        result = nltk.word_tokenize(self._text)
-        if self._use_cache:
-            self._cached_words = result
-        return result
+    @cached
+    def words_with_indices(self):
+        """
+        Compute a list of words, with beginning and end indices
 
+        Returns:
+            List[Tuple[str, int, int]]
+        """
+        offset = 0
+        token_indices = []
+        for word in self.words():
+            offset = self._text.find(word, offset)
+            token_indices.append((word, offset, offset + len(word)))
+            offset += len(word)
+        return token_indices
+
+    @cached
     def words_by_part_of_speech(self):
         """
         Compute the parts of speech for each word in the document.
@@ -95,19 +108,14 @@ class Document:
             dict
 
         """
-        # Default to cache, if available:
-        if self._use_cache and self._cached_words_by_pos:
-            return self._cached_words_by_pos
-
         words = self.words()
         tagged = nltk.pos_tag(words)
         categories = {}
         for type in {t[1] for t in tagged}:
             categories[type] = [t[0] for t in tagged if t[1] == type]
-        if self._use_cache:
-            self._cached_words_by_pos = categories
         return categories
 
+    @cached
     def stemmed_words(self):
         """
         Compute the stems of words.
@@ -118,13 +126,6 @@ class Document:
             List
 
         """
-        # Default to cache, if available:
-        if self._use_cache and self._cached_stemmed_words:
-            return self._cached_stemmed_words
-
         words = self.words()
         porter = nltk.PorterStemmer()
-        result = [porter.stem(w) for w in words]
-        if self._use_cache:
-            self._cached_stemmed_words = result
-        return result
+        return [porter.stem(w) for w in words]

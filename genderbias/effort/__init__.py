@@ -17,15 +17,10 @@ class EffortDetector(Detector):
         """
         Flag the text based upon effort vs accomplishment.
         """
-        token_indices = []
         effort_flags = []
         accomplishment_flags = []
-        words = doc.words()
-        offset = 0
-        for word in words:
-            offset = doc._text.find(word, offset)
-            token_indices.append((word, offset, offset + len(word)))
-            offset += len(word)
+
+        token_indices = doc.words_with_indices()
 
         for word, start, stop in token_indices:
             if word.lower() in EFFORT_WORDS:

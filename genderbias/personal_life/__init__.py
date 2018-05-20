@@ -23,14 +23,8 @@ class PersonalLifeDetector(Detector):
         """
         Flag
         """
-        token_indices = []
+        token_indices = doc.words_with_indices()
         flags = []
-        words = doc.words()
-        offset = 0
-        for word in words:
-            offset = doc._text.find(word, offset)
-            token_indices.append((word, offset, offset + len(word)))
-            offset += len(word)
 
         for word, start, stop in token_indices:
             if word.lower() in PERSONAL_LIFE_TERMS:
