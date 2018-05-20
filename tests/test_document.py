@@ -18,7 +18,8 @@ examples = dict(m=dict(file=example_dir + "letterofRecM", sentences=13, commas=1
 
 @fixture(params=examples.values())
 def example_doc(request):
-    return request.param
+    return dict(request.param, document=Document(request.param['file']))
+
 
 def test_can_read_examples(example_doc):
     with open(example_doc['file'], 'r') as stream:
@@ -26,16 +27,14 @@ def test_can_read_examples(example_doc):
 
 
 def test_words(example_doc):
-    t = Document(example_doc['file'])
-    words = t.words()
+    words = example_doc['document'].words()
     assert isinstance(words, list)
     assert len(words) > 0
 
 
 def test_stemming(example_doc):
-    t = Document(example_doc['file'])
-    assert (sum([len(x) for x in t.words()]) >
-            sum([len(x) for x in t.stemmed_words()]))
+    assert (sum([len(x) for x in example_doc['document'].words()]) >
+            sum([len(x) for x in example_doc['document'].stemmed_words()]))
 
 
 # def test_lemmatizing():
@@ -46,14 +45,12 @@ def test_stemming(example_doc):
 
 
 def test_sentence(example_doc):
-    t = Document(example_doc['file'])
-    s = t.sentences()
+    s = example_doc['document'].sentences()
     for ss in s:
         assert "\n" not in ss
     assert len(s) == example_doc['sentences']
 
 
 def test_words_by_part_of_speech(example_doc):
-    t = Document(example_doc['file'])
-    c = t.words_by_part_of_speech()
+    c = example_doc['document'].words_by_part_of_speech()
     assert len(c[',']) == example_doc['commas']
