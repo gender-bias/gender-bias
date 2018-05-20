@@ -13,7 +13,7 @@ _dir = os.path.dirname(__file__)
 
 # filename, assertions - number-of-sentences, commas
 examples = dict(m=(_dir + "/../example_letters/letterofRecM", 13, 12),
-                f=(_dir + "/../example_letters/letterofRec_W", 26, 29))
+                f=(_dir + "/../example_letters/letterofRecW", 26, 29))
 
 
 @fixture(params=examples.values())
