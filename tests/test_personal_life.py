@@ -13,12 +13,10 @@ GOOD_DOCUMENTS = [
 
 def test_bad_documents_trip_detector():
     for doc in BAD_DOCUMENTS:
-        assert(
-            len(PersonalLifeDetector().get_flags(Document(doc))) > 0
-        )
+        text = str(PersonalLifeDetector().get_report(Document(doc)))
+        assert len(text.split("\n")) > 2
 
 def test_good_documents_pass_detector():
     for doc in GOOD_DOCUMENTS:
-        assert(
-            len(PersonalLifeDetector().get_flags(Document(doc))) == 0
-        )
+        text = str(PersonalLifeDetector().get_report(Document(doc)))
+        assert len(text.split("\n")) == 2

@@ -24,11 +24,11 @@ def main():
         # Otherwise, load the file
         doc = Document(args.file)
 
-    flags = []
+    reports = []
     for detector in ALL_DETECTORS:
-        flags += detector().get_flags(doc)
+        reports.append(detector().get_report(doc))
 
-    print("\n".join(str(f) for f in flags))
+    print("\n".join(str(report) for report in reports))
 
 
 
