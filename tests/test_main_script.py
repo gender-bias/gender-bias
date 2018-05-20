@@ -12,9 +12,9 @@ def example(request):
 def file_flag(request):
     return request.param
 
-def output_with_options(options):
-    popen = Popen(script + options, stdout=PIPE, universal_newlines=True)
-    return popen.communicate()[0]
+def output_with_options(options, feed_in=""):
+    popen = Popen(script + options, stdin=PIPE, stdout=PIPE, universal_newlines=True)
+    return popen.communicate(feed_in)[0]
 
 
 def test_script_help():
@@ -23,6 +23,14 @@ def test_script_help():
 
 def test_script_file_flags(example, file_flag):
     output = output_with_options([file_flag, example])
+    for line in output.split("\n"):
+        if line:
+            assert line[0] == "["
+
+def test_script_input_from_stdin(example):
+    with open(example) as stream:
+        text = stream.read()
+    output = output_with_options([], feed_in=text)
     for line in output.split("\n"):
         if line:
             assert line[0] == "["
