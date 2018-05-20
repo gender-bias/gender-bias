@@ -108,9 +108,15 @@ class Report:
 
     def __init__(self, name):
         self._name = name
+        self._flags = []
 
     def __str__(self):
+        if self._flags:
+            return "\n".join(str(f) for f in [self._name]+self._flags)
         return self._name
+
+    def add_flag(self, flag):
+        self._flags.append(flag)
 
 
 class Detector:
