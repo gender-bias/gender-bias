@@ -114,10 +114,10 @@ class Report:
     def __str__(self):
         text = [self._name]
         if self._flags:
-            text += self._flags
+            text += [" " + str(flag) for flag in self._flags]
         if self._summary:
-            text.append(self._summary)
-        return "\n".join(str(item) for item in text)
+            text.append(" SUMMARY: " + self._summary)
+        return "\n".join(text)
 
     def add_flag(self, flag):
         self._flags.append(flag)
