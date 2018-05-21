@@ -126,7 +126,11 @@ class Report:
 
     def to_dict(self):
         return dict(name=self._name,
-                    summary=self._summary if self._summary else "")
+                    summary=(self._summary if self._summary else ""),
+                    flags=[(flag.start, flag.stop, flag.issue.name,
+                            flag.issue.description, flag.issue.fix)
+                           for flag in self._flags]
+        )
 
 
 class Detector:
