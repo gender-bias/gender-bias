@@ -100,6 +100,31 @@ class Flag:
         )
 
 
+class Report:
+    """
+    A structured report with a name, optional summary (both strings) and Flags
+    as defined above. Output is provided as a string.
+    """
+
+    def __init__(self, name):
+        self._name = name
+        self._flags = []
+        self._summary = None
+
+    def __str__(self):
+        text = [self._name]
+        if self._flags:
+            text += [" " + str(flag) for flag in self._flags]
+        text.append(" SUMMARY: " + (self._summary if self._summary else "[None available]"))
+        return "\n".join(text)
+
+    def add_flag(self, flag):
+        self._flags.append(flag)
+
+    def set_summary(self, summary):
+        self._summary = summary
+
+
 class Detector:
     """
     Abstract class for a detector. Implement this to use.

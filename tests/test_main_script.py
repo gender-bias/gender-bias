@@ -3,7 +3,8 @@ import os
 from pytest import fixture
 
 script = ["genderbias"]
-examples = ["example_letters/letterofRecM", "example_letters/letterofRecW"]
+examples = [dict(file="example_letters/letterofRecM", output_lines=6),
+            dict(file="example_letters/letterofRecW", output_lines=10)]
 
 @fixture(params = examples)
 def example(request):
@@ -19,22 +20,18 @@ def output_with_options(options, feed_in=""):
 
 
 def test_meta_ensure_examples_exist(example):
-    assert os.path.isfile(example)
+    assert os.path.isfile(example['file'])
 
 def test_script_help():
     help_text = 'usage: genderbias [-h] [--file FILE]\n\nCLI for gender-bias detection\n\noptional arguments:\n  -h, --help            show this help message and exit\n  --file FILE, -f FILE  The file to check\n'
     assert output_with_options(["-h"]) == help_text
 
 def test_script_file_flags(example, file_flag):
-    output = output_with_options([file_flag, example])
-    for line in output.split("\n"):
-        if line:
-            assert line[0] == "["
+    output = output_with_options([file_flag, example['file']])
+    assert len(output.strip().split("\n")) == example['output_lines']
 
 def test_script_input_from_stdin(example):
-    with open(example) as stream:
+    with open(example['file']) as stream:
         text = stream.read()
     output = output_with_options([], feed_in=text)
-    for line in output.split("\n"):
-        if line:
-            assert line[0] == "["
+    assert len(output.strip().split("\n")) == example['output_lines']

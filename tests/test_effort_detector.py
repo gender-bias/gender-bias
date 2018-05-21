@@ -14,16 +14,11 @@ GOOD_DOCUMENTS = [
 
 def test_bad_documents_trip_detector():
     for doc in BAD_DOCUMENTS:
-        [
-            print(f) for f in EffortDetector().get_flags(Document(doc))
-        ]
-        assert(
-            len(EffortDetector().get_flags(Document(doc))) > 0
-        )
+        text = str(EffortDetector().get_report(Document(doc)))
+        assert len(text.split("\n")) > 2
 
 
 def test_good_documents_pass_detector():
     for doc in GOOD_DOCUMENTS:
-        assert(
-            len(EffortDetector().get_flags(Document(doc))) == 0
-        )
+        text = str(EffortDetector().get_report(Document(doc)))
+        assert len(text.split("\n")) == 2

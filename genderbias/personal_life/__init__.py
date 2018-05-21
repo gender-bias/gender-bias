@@ -11,7 +11,7 @@ recommendation or evaluation.
 """
 
 from genderbias.document import Document
-from genderbias.detector import Detector, Flag, Issue
+from genderbias.detector import Detector, Flag, Issue, Report
 
 PERSONAL_LIFE_TERMS = [
     "child",
@@ -36,30 +36,32 @@ class PersonalLifeDetector(Detector):
 
     """
 
-    def get_flags(self, doc: 'Document'):
+    def get_report(self, doc):
         """
-        Flag the text based upon mentions of personal-life-related words.
+        Generate a report on the text based upon mentions of
+        personal-life-related words.
 
         Arguments:
             doc (Document): The document to check
 
         Returns:
-            List[Flag]
+            Report
 
         """
+        report = Report("Personal Life")
+
         token_indices = doc.words_with_indices()
-        flags = []
 
         for word, start, stop in token_indices:
             if word.lower() in PERSONAL_LIFE_TERMS:
-                flags.append(
+                report.add_flag(
                     Flag(start, stop, Issue(
                         "Personal Life",
                         "The word {word} tends to relate to personal life.".format(word=word),
                         "Try replacing with a sentiment about professional life."
                     ))
                 )
-        return flags
+        return report
 
 
 def personal_life_terms_prevalence(doc: 'Document') -> float:

@@ -13,7 +13,7 @@ summary that directs the author to add statements related to accomplishment.
 
 
 import os
-from genderbias.detector import Detector, Flag, Issue
+from genderbias.detector import Detector, Flag, Issue, Report
 
 _dir = os.path.dirname(__file__)
 
@@ -41,21 +41,21 @@ class EffortDetector(Detector):
 
     """
 
-    def get_flags(self, doc: 'Document'):
+    def get_report(self, doc):
         """
-        Flag the text based upon effort vs accomplishment.
+        Generates a report on the text based upon effort vs accomplishment.
 
-        Also adds a final flag if there are NO words about accomplishment,
-        or adds a final flag if the ratio of effort to accomplishment words
-        is particularly low.
+        Also adds a summary if there are NO words about accomplishment, or if
+        the ratio of effort to accomplishment words is particularly low.
 
         Arguments:
             doc (Document): The document to check
 
         Returns:
-            List[Flag]
+            Report
 
         """
+        report = Report("Effort vs Accomplishment")
         effort_flags = []
         accomplishment_flags = []
 
@@ -80,24 +80,20 @@ class EffortDetector(Detector):
                     ))
                 )
 
+        for flag in effort_flags:
+            report.add_flag(flag)
+
         if (
             len(accomplishment_flags) is 0 or
             len(effort_flags) / len(accomplishment_flags) > 1.2  # TODO: Arbitrary!
         ):
             # Avoid divide-by-zero errors
             if len(accomplishment_flags) == 0:
-                effort_flags = [
-                    Flag(0, 0, Issue(
-                        "This document has too few words about concrete accomplishment."
-                    ))
-                ] + effort_flags
+                report.set_summary("This document has too few words about concrete accomplishment.")
             else:
-                effort_flags = [
-                    Flag(0, 0, Issue(
-                        "This document has a high ratio ({}:{}) of words suggesting effort to words suggesting concrete accomplishment.".format(
+                report.set_summary("This document has a high ratio ({}:{}) of words suggesting effort to words suggesting concrete accomplishment.".format(
                             len(effort_flags), len(accomplishment_flags)
                         )
-                    ))
-                ] + effort_flags
+                    )
 
-        return effort_flags
+        return report
