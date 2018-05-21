@@ -26,6 +26,12 @@ REQUIRED = [
     'nltk',
 ]
 
+# What packages are suggested for doing development?
+DEVELOPING_REQS = [
+    'pytest',
+    'pylint'
+]
+
 here = os.path.abspath(os.path.dirname(__file__))
 
 with io.open(os.path.join(here, 'README.md'), encoding='utf-8') as f:
@@ -86,6 +92,9 @@ setup(
     packages=find_packages(exclude=('tests',)),
     scripts=['bin/genderbias'],
     install_requires=REQUIRED,
+    extras_require={
+        'dev': DEVELOPING_REQS,
+    },
     include_package_data=True,
     license='MIT',
     classifiers=[
