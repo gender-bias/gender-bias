@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import argparse
-
 import sys
+import json
 
 from genderbias import ALL_DETECTORS, Document
 
@@ -13,6 +13,10 @@ def main():
     parser.add_argument(
         "--file", "-f", dest="file", required=False,
         help="The file to check"
+    )
+    parser.add_argument(
+        "--json", "-j", dest="json", required=False, default=False, action='store_true',
+        help="Enable JSON output, instead of text"
     )
 
     args = parser.parse_args()
@@ -28,7 +32,11 @@ def main():
     for detector in ALL_DETECTORS:
         reports.append(detector().get_report(doc))
 
-    print("\n".join(str(report) for report in reports))
+    if not args.json:
+        print("\n".join(str(report) for report in reports))
+    else:
+        reports_data = [report.to_dict() for report in reports]
+        print(json.dumps(reports_data))
 
 
 
