@@ -1,6 +1,8 @@
 attempt
 attempts
 attempted
+careful
+carefully
 challenges
 challenging
 challenged
@@ -18,6 +20,8 @@ dedicated
 dedicates
 dedicating
 dedication
+dependable
+dependability
 devoted
 devotes
 devotion
@@ -62,6 +66,9 @@ striven
 tenacious
 tenacity
 tenaciously
+thorough
+thoroughly
+thoroughness
 tireless
 tirelessly
 tirelessness
