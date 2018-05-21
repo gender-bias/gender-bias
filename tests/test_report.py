@@ -24,3 +24,7 @@ def test_report_str_with_one_flag(report):
 def test_report_str_no_flags_with_summary(report):
     report.set_summary(summary)
     assert str(report) == report_name + "\n" + " SUMMARY: " + summary
+
+def test_report_to_dict_no_flags(report):
+    expected = {'name': report_name, 'summary': ""}
+    assert report.to_dict() == expected

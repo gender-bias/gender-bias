@@ -124,6 +124,10 @@ class Report:
     def set_summary(self, summary):
         self._summary = summary
 
+    def to_dict(self):
+        return dict(name=self._name,
+                    summary=self._summary if self._summary else "")
+
 
 class Detector:
     """
