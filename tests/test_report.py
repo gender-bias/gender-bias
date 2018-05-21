@@ -35,3 +35,8 @@ def test_report_to_dict_with_one_flag(report):
                 'flags': [(0, 10, report_name, "AB", "")]
     }
     assert report.to_dict() == expected
+
+def test_report_to_dict_with_summary(report):
+    report.set_summary(summary)
+    expected = {'name': report_name, 'summary': summary, 'flags': []}
+    assert report.to_dict() == expected
