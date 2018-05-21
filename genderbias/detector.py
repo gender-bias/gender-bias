@@ -143,9 +143,9 @@ class Detector:
         pass
 
     @abstractmethod
-    def get_flags(self, doc: 'Document'):
+    def get_report(self, doc):
         """
-        Returns a list of flags for a document.
+        Returns a Report for a document.
         """
         raise NotImplementedError()
 

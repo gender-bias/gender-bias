@@ -37,55 +37,48 @@ salamander
 In `amphibian/__init__.py`, we'll _inherit_ from the base `Detector` class:
 
 ```python
-from genderbias.detector import Detector, Flag, Issue
+from genderbias.detector import Detector, Flag, Issue, Report
 
 
 class AmphibianDetector(Detector):
 
-    def get_flags(self, doc: 'Document'):
+    def get_report(self, doc):
         pass
 ```
 
 Let's include the wordlist as a variable named `AMPHIBIAN_WORDS`:
 
 ```python
-from genderbias.detector import Detector, Flag, Issue
+from genderbias.detector import Detector, Flag, Issue, Report
 
 AMPHIBIAN_WORDS = open(_dir + "/wordlist.txt", 'r').readlines()
 
 class AmphibianDetector(Detector):
 
-    def get_flags(self, doc: 'Document'):
+    def get_report(self, doc):
         pass
 ```
 
 ### Flagging amphibian-related words
 
-We only have one function to implement: `get_flags`. This function must accept a `Document` and return a list of `Flag`s.
+We only have one function to implement: `get_report`. This function must accept a `Document` and return a `Report`.
 
-Let's flag any time one of the words from our wordlist comes up:
+Let's flag any time one of the words from our wordlist comes up (using the `Flag` class), and add these to the `Report`:
 
 ```python
-from genderbias.detector import Detector, Flag, Issue
+from genderbias.detector import Detector, Flag, Issue, Report
 
 AMPHIBIAN_WORDS = open(_dir + "/wordlist.txt", 'r').readlines()
 
 class AmphibianDetector(Detector):
 
-    def get_flags(self, doc: 'Document'):
-        token_indices = []
-        amphibian_flags = []
-        words = doc.words()
-        offset = 0
+    def get_report(self, doc):
+        amphibian_report = Report("Amphibians")
+        words_with_indices = doc.words_with_indices()
 
-        for word in words:
-            offset = doc._text.find(word, offset)
-            token_indices.append((word, offset, offset + len(word)))
-            offset += len(word)
-
-        for word, start, stop in token_indices:
+        for word, start, stop in words_with_indices:
             if word.lower() in AMPHIBIAN_WORDS:
-                amphibian_flags.append(
+                amphibian_report.add_flag(
                     Flag(start, stop, Issue(
                         "AmphibianWord",
                         "You shouldn't call someone an amphibian. '{word}' is an amphibian-sounding word.".format(
@@ -94,7 +87,40 @@ class AmphibianDetector(Detector):
                     ))
                 )
 
-        return amphibian_flags
+        return amphibian_report
+
+```
+
+We can also, optionally, set a summary of our findings:
+
+```python
+from genderbias.detector import Detector, Flag, Issue, Report
+
+AMPHIBIAN_WORDS = open(_dir + "/wordlist.txt", 'r').readlines()
+
+class AmphibianDetector(Detector):
+
+    def get_report(self, doc):
+        amphibian_report = Report("Amphibians")
+        words_with_indices = doc.words_with_indices()
+
+        found_amphibian = False
+        for word, start, stop in token_indices:
+            if word.lower() in AMPHIBIAN_WORDS:
+                found_amphibian = True
+                amphibian_report.add_flag(
+                    Flag(start, stop, Issue(
+                        "AmphibianWord",
+                        "You shouldn't call someone an amphibian. '{word}' is an amphibian-sounding word.".format(
+                            word=word),
+                        "Try replacing with phrasing that emphasizes that this person is a human."
+                    ))
+                )
+
+        if found_amphibian:
+            amphibian_report.set_summary("Found some amphibian words. These are highly recommended against being used.")
+
+        return amphibian_report
 
 ```
 
@@ -118,5 +144,7 @@ And we're done! Now, when users run `genderbias`, it will detect if they have ca
 
 ```shell
 $ genderbias --file my-letter.txt
-[50-54] AmphibianWord: You shouldn't call someone an amphibian. 'frog' is an amphibian-sounding word. Try replacing with phrasing that emphasizes that this person is a human.
+Amphibians
+ [50-54] AmphibianWord: You shouldn't call someone an amphibian. 'frog' is an amphibian-sounding word. Try replacing with phrasing that emphasizes that this person is a human.
+ SUMMARY: Found some amphibian words. These are highly recommended against being used.
 ```
