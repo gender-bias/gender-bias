@@ -1,8 +1,8 @@
 # Contributing to Reading for Gender Bias
 
-Welcome!  I'm really excited to see you here!  Thank you for taking the time to contribute! Reading for Gender Bias welcomes all contributions from anyone willing to work in good faith.  No contribution is too samll and all contributions are valued.
+Welcome!  I'm really excited to see you here!  Thank you for taking the time to contribute! Reading for Gender Bias welcomes all contributions from anyone willing to work in good faith.  No contribution is too small and all contributions are valued.
 
-This documents is a set of guidelines for contributing to Reading for Gender Bias on GitHub. These are guidelines, not rules. This guide is meant to make it easy for you to get involved.
+This document is a set of guidelines for contributing to Reading for Gender Bias on GitHub. These are guidelines, not rules. This guide is meant to make it easy for you to get involved.
 
 # What should I know before I get started?
 
@@ -14,13 +14,29 @@ Implicit gender bias in evaluations negatively impacts women at every stage of h
 
 This project adheres to [Mozilla Community Participation Guidelines](https://www.mozilla.org/en-US/about/governance/policies/participation/). By participating, you are expected to uphold this code. Please report unacceptable behavior to mollie@biascorrect.com.
 
+# How can I explore the current code?
+
+## Running
+
+To run the current code:
+* Ensure you have a python installation on your system
+* Obtain a copy of the repository
+* Set up a python virtual environment for the project (optional but recommended)
+* Go to the project directory and run `pip install .`
+
+## Setting up for development
+
+To install the project so that changes are reflected in the installed script and library, run `pip install -e .`.
+
+The test environment can be installed by using `pip install -e .[dev]`, and then run using `run_tests.sh`.
+
 # How can I contribute?
 
 ## Your first contribution
 
 Unsure where to begin contributing to Reading for Gender Bias? You can start by looking at `good first issue` and `help wanted` issues.
 
-We are using python for our programming language.  There is a folder of letters for texting code [here](https://github.com/molliem/gender-bias/tree/master/example_letters).
+We are using python for our programming language.  There is a folder of letters for testing code [here](https://github.com/molliem/gender-bias/tree/master/example_letters).
 
 You can also take a look at the [Roadmap](https://github.com/molliem/gender-bias/issues/1) to get a sense of where we are going and to start making your own milestones and issues. 
 
