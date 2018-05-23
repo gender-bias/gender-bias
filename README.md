@@ -92,13 +92,16 @@ Studies on gender bias show that letters/evaluations written for women are:
 * Trix, F. & Psenka, C., "Exploring the color of glass: Letters of recommendation for female and male medical faculty," Discourse & Society 14(2003): 191-220. [[Link](http://journals.sagepub.com/doi/abs/10.1177/0957926503014002277)] [[PDF](http://journals.sagepub.com/doi/pdf/10.1177/0957926503014002277)]
 
 ### Minimal Assurance
+* Isaac, C., Chertoff, J., Lee, B., & Carnes, M. (2011). Do students’ and authors’ genders affect evaluations? A linguistic analysis of medical student performance evaluations. Academic Medicine, 86(1), 59. [[Link](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3321359/) [[PDF](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3321359/pdf/nihms363051.pdf)]
 * Trix, F. & Psenka, C., "Exploring the color of glass: Letters of recommendation for female and male medical faculty," Discourse & Society 14(2003): 191-220. [[Link](http://journals.sagepub.com/doi/abs/10.1177/0957926503014002277)] [[PDF](http://journals.sagepub.com/doi/pdf/10.1177/0957926503014002277)]
 
 ### Effort
 * Deaux, K. & Emswiller, T., "Explanations of successful performance on sex-linked tasks: What is skill for the male is luck for the female," Journal of Personality and Social Psychology 29(1974): 80-85 [[Link](http://psycnet.apa.org/record/1974-20859-001)]
+* Isaac, C., Chertoff, J., Lee, B., & Carnes, M. (2011). Do students’ and authors’ genders affect evaluations? A linguistic analysis of medical student performance evaluations. Academic Medicine, 86(1), 59. [[Link](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3321359/) [[PDF](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3321359/pdf/nihms363051.pdf)]
 * Steinpreis, R., Anders, K.A., & Ritzke, D., "The impact of gender on the review of the curricula vitae of job applicants and tenure candidates: A national empirical study," Sex Roles 41(1999): 509-528 [[Link](https://link.springer.com/article/10.1023/A:1018839203698)] [[PDF](https://pdfs.semanticscholar.org/bb0f/52062572e83c07b51d3f83ad937633a4637e.pdf)]
 
 ### Personal Life
+* Isaac, C., Chertoff, J., Lee, B., & Carnes, M. (2011). Do students’ and authors’ genders affect evaluations? A linguistic analysis of medical student performance evaluations. Academic Medicine, 86(1), 59. [[Link](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3321359/) [[PDF](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3321359/pdf/nihms363051.pdf)]
 * Madera, J. M., Hebl, M. R., & Martin, R. C. (2009). Gender and letters of recommendation for academia: Agentic and communal differences. Journal of Applied Psychology, 94(6), 1591. [[Link](http://psycnet.apa.org/record/2009-21033-018)] [[PDF](https://eswnonline.org/wp-content/uploads/gravity_forms/23-b28d66b6400f67d9648a049f8faf44e0/2015/05/Madera2009_Gender-and-letters-of-recommendation.pdf)]
 * Trix, F. & Psenka, C., "Exploring the color of glass: Letters of recommendation for female and male medical faculty," Discourse & Society 14(2003): 191-220. [[Link](http://journals.sagepub.com/doi/abs/10.1177/0957926503014002277)] [[PDF](http://journals.sagepub.com/doi/pdf/10.1177/0957926503014002277)]
 
