@@ -3,7 +3,7 @@ import argparse
 import sys
 import json
 
-from genderbias import ALL_DETECTORS, Document
+from genderbias import ALL_SCANNED_DETECTORS, Document
 
 
 def main():
@@ -29,7 +29,7 @@ def main():
         doc = Document(args.file)
 
     reports = []
-    for detector in ALL_DETECTORS:
+    for detector in ALL_SCANNED_DETECTORS:
         reports.append(detector().get_report(doc))
 
     if not args.json:
