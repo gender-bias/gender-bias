@@ -1,6 +1,11 @@
 
 from abc import abstractmethod
 
+
+class BiasBoundsException(Exception):
+    pass
+
+
 class Issue:
     """
     An Issue is a call-out to a specific failure of a text.
@@ -33,6 +38,9 @@ class Issue:
             None
 
         """
+        if bias < Issue.negative_result or bias > Issue.positive_result:
+            raise BiasBoundsException()
+
         self.name = name
         self.description = description
         self.fix = fix

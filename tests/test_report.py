@@ -1,6 +1,6 @@
-from genderbias.detector import Report, Issue, Flag
+from genderbias.detector import Report, Issue, Flag, BiasBoundsException
 
-from pytest import fixture
+from pytest import fixture, raises
 
 report_name = "Text Analyzer"
 summary = "[summary]"
@@ -56,3 +56,10 @@ def test_report_with_mixed_flags(report):
     report.add_flag(flag)
     assert str(report) == "\n".join([report_name, flag_text, no_summary_text])
     assert report.to_dict() == dict(base_dict, flags=[positive_flag_tuple, negative_flag_tuple])
+
+# TODO: These should move to a new test_issue file or similar, in time
+def test_issue_bias_bounds():
+    with raises(BiasBoundsException):
+        Issue("", bias=Issue.positive_result+0.0000001)
+    with raises(BiasBoundsException):
+        Issue("", bias=Issue.negative_result-0.0000001)
