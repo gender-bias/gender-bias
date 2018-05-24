@@ -134,7 +134,7 @@ class Report:
         return dict(name=self._name,
                     summary=(self._summary if self._summary else ""),
                     flags=[(flag.start, flag.stop, flag.issue.name,
-                            flag.issue.description, flag.issue.fix)
+                            flag.issue.description, flag.issue.fix, flag.issue.bias)
                            for flag in self._flags]
         )
 
