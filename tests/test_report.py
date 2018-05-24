@@ -10,6 +10,8 @@ positive_flag = Flag(20, 30, Issue(report_name, "C", "D", bias = Issue.positive_
 no_summary_text = " SUMMARY: [None available]"
 flag_text = " [0-10]: " + report_name + ": A (B)"
 
+base_dict = {'name': report_name, 'summary': "", 'flags': []}
+
 @fixture
 def report():
     return Report(report_name)
@@ -28,20 +30,15 @@ def test_report_str_no_flags_with_summary(report):
 
 
 def test_report_to_dict_no_flags(report):
-    expected = {'name': report_name, 'summary': "", 'flags': []}
-    assert report.to_dict() == expected
+    assert report.to_dict() == base_dict
 
 def test_report_to_dict_with_one_flag(report):
     report.add_flag(flag)
-    expected = {'name': report_name, 'summary': "",
-                'flags': [(0, 10, report_name, "A", "B")]
-    }
-    assert report.to_dict() == expected
+    assert report.to_dict() == dict(base_dict, flags=[(0, 10, report_name, "A", "B")])
 
 def test_report_to_dict_with_summary(report):
     report.set_summary(summary)
-    expected = {'name': report_name, 'summary': summary, 'flags': []}
-    assert report.to_dict() == expected
+    assert report.to_dict() == dict(base_dict, summary=summary)
 
 
 def test_report_with_positive_flags(report):
