@@ -16,7 +16,10 @@ class Issue:
 
     """
 
-    def __init__(self, name: str, description: str = "", fix: str = ""):
+    positive_result = +1.0
+    negative_result = -1.0
+
+    def __init__(self, name: str, description: str = "", fix: str = "", bias=negative_result):
         """
         Create a new Issue.
 
@@ -33,6 +36,7 @@ class Issue:
         self.name = name
         self.description = description
         self.fix = fix
+        self.bias = bias
 
     def __str__(self):
         """
@@ -45,6 +49,8 @@ class Issue:
             str: The Issue, formatted as: `Name: Description. (Fix)`
 
         """
+        if self.bias != Issue.negative_result:  # Maybe users should always check for bias instead?
+            return ""
         result = self.name
         if self.description:
             result += ": " + self.description
@@ -114,7 +120,7 @@ class Report:
     def __str__(self):
         text = [self._name]
         if self._flags:
-            text += [" " + str(flag) for flag in self._flags]
+            text += [" " + str(flag) for flag in self._flags if flag.issue.bias == Issue.negative_result]
         text.append(" SUMMARY: " + (self._summary if self._summary else "[None available]"))
         return "\n".join(text)
 
