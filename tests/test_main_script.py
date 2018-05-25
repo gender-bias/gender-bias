@@ -19,6 +19,10 @@ def file_flag(request):
 def json_flag(request):
     return request.param
 
+@fixture(params = ["--list-detectors"])
+def list_detectors_flag(request):
+    return request.param
+
 
 def output_with_options(options, feed_in=""):
     popen = Popen(script + options, stdin=PIPE, stdout=PIPE, universal_newlines=True)
@@ -31,6 +35,14 @@ def test_meta_ensure_examples_exist(example):
 def test_script_help():
     start_help_text = 'usage: genderbias [-h]'
     assert start_help_text in output_with_options(["-h"])
+
+def test_script_can_list_detectors(list_detectors_flag):
+    output = output_with_options([list_detectors_flag])
+    import os
+    dirs = [os.path.join("genderbias",_dir) for _dir in os.listdir("genderbias")
+            if _dir != "__pycache__" and os.path.isdir(os.path.join("genderbias", _dir))]
+    assert output.strip().split("\n")[0] == "AVAILABLE DETECTORS:"
+    assert len(output.strip().split("\n")) == len(dirs) + 1  # 1 from Header line
 
 def test_script_file_flags(example, file_flag):
     output = output_with_options([file_flag, example['file']])

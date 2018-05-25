@@ -18,8 +18,17 @@ def main():
         "--json", "-j", dest="json", required=False, default=False, action='store_true',
         help="Enable JSON output, instead of text"
     )
+    parser.add_argument(
+        "--list-detectors", dest="list_detectors", default=False, action="store_true",
+        help="List the available detectors")
 
     args = parser.parse_args()
+
+    if args.list_detectors:
+        print("AVAILABLE DETECTORS:")
+        for class_name in ALL_SCANNED_DETECTORS:
+            print(" " + class_name)
+        sys.exit(0)
 
     if not args.file:
         # If no file is passed, then read from stdin
@@ -29,7 +38,7 @@ def main():
         doc = Document(args.file)
 
     reports = []
-    for detector in ALL_SCANNED_DETECTORS:
+    for _, detector in ALL_SCANNED_DETECTORS.items():
         reports.append(detector().get_report(doc))
 
     if not args.json:

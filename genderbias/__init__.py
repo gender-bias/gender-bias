@@ -21,4 +21,4 @@ def scanned_detectors():
             if 'Detector' in str(cls.__bases__)]
 
 _scanned_detectors = scanned_detectors()
-ALL_SCANNED_DETECTORS = {cls for _, _, cls in _scanned_detectors}
+ALL_SCANNED_DETECTORS = {class_name: cls for _, class_name, cls in _scanned_detectors}
