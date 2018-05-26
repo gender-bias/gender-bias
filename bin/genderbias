@@ -36,6 +36,9 @@ def main():
     if args.detectors:
         if args.detectors in ALL_SCANNED_DETECTORS:
             detectors = [ALL_SCANNED_DETECTORS[args.detectors]]
+        else:
+            print("Detector named '{}' not available.".format(args.detectors))
+            sys.exit(1)
     else:
         detectors = ALL_SCANNED_DETECTORS.values()
 

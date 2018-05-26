@@ -76,3 +76,9 @@ def test_script_with_one_detector(example, file_flag, list_detectors_flag, detec
     for detector in detectors:
         output = trimmed_output_with_options([file_flag, example['file'], detectors_flag, detector])
         assert len([line for line in output if line[0] != ' ']) == 1
+
+def test_script_with_invalid_detector(example, file_flag, detectors_flag):
+    invalid_detector = "somethinginvalidasgzxcbzxghsdgl"
+    output = trimmed_output_with_options([file_flag, example['file'], detectors_flag, invalid_detector])
+    assert len(output) == 1
+    assert output[0] == "Detector named '{}' not available.".format(invalid_detector)
