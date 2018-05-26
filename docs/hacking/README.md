@@ -124,23 +124,19 @@ class AmphibianDetector(Detector):
 
 ```
 
-### Register the `Detector` in the main package
+### Using the `Detector` in the main package
 
-All done! Let's add our `Detector` to the list of detectors in the main module. Open `genderbias/__init__.py` and update `ALL_DETECTORS`:
+All done! Assuming the new `Detector` is correctly located, it will be automatically located by the `genderbias` script.
 
-```python
+You can check it is available using:
+```shell
+$ genderbias --list-detectors
 ...
-from .personal_life import PersonalLifeDetector
-from .amphibian import AmphibianDetector                  # ⭐
-
-ALL_DETECTORS = [
-    ...
-    PersonalLifeDetector,
-    AmphibianDetector,                                  # ⭐
-]
+AmphibianDetector
 ```
+(where the `...` may be a list of other `Detector`s)
 
-And we're done! Now, when users run `genderbias`, it will detect if they have called someone some sort of amphibian-sounding word:
+If it's listed using the above command, then we're done! Now, when users run `genderbias`, it will detect if they have called someone some sort of amphibian-sounding word:
 
 ```shell
 $ genderbias --file my-letter.txt
