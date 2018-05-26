@@ -21,6 +21,9 @@ def main():
     parser.add_argument(
         "--list-detectors", dest="list_detectors", default=False, action="store_true",
         help="List the available detectors")
+    parser.add_argument(
+        "--detectors", dest="detectors", default="",
+        help="Use specific detectors, not all available")
 
     args = parser.parse_args()
 
@@ -30,6 +33,12 @@ def main():
             print(" " + class_name)
         sys.exit(0)
 
+    if args.detectors:
+        if args.detectors in ALL_SCANNED_DETECTORS:
+            detectors = [ALL_SCANNED_DETECTORS[args.detectors]]
+    else:
+        detectors = ALL_SCANNED_DETECTORS.values()
+
     if not args.file:
         # If no file is passed, then read from stdin
         doc = Document(sys.stdin.read())
@@ -38,7 +47,7 @@ def main():
         doc = Document(args.file)
 
     reports = []
-    for _, detector in ALL_SCANNED_DETECTORS.items():
+    for detector in detectors:
         reports.append(detector().get_report(doc))
 
     if not args.json:

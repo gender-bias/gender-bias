@@ -23,6 +23,10 @@ def json_flag(request):
 def list_detectors_flag(request):
     return request.param
 
+@fixture(params = ["--detectors"])
+def detectors_flag(request):
+    return request.param
+
 
 def output_with_options(options, feed_in=""):
     popen = Popen(script + options, stdin=PIPE, stdout=PIPE, universal_newlines=True)
@@ -65,3 +69,10 @@ def test_script_json_output(example, file_flag, json_flag):
         assert isinstance(element['name'], str)
         assert isinstance(element['summary'], str)
         assert isinstance(element['flags'], list)
+
+def test_script_with_one_detector(example, file_flag, list_detectors_flag, detectors_flag):
+    detectors_output = output_with_options([list_detectors_flag]).strip().split("\n")
+    detectors = [line[1:] for line in detectors_output if line and line[0] == ' ']
+    for detector in detectors:
+        output = output_with_options([file_flag, example['file'], detectors_flag, detector])
+        assert len([line for line in output.strip().split("\n") if line[0] != ' ']) == 1
