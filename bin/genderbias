@@ -3,7 +3,7 @@ import argparse
 import sys
 import json
 
-from genderbias import ALL_DETECTORS, Document
+from genderbias import ALL_SCANNED_DETECTORS, Document
 
 
 def main():
@@ -18,8 +18,29 @@ def main():
         "--json", "-j", dest="json", required=False, default=False, action='store_true',
         help="Enable JSON output, instead of text"
     )
+    parser.add_argument(
+        "--list-detectors", dest="list_detectors", default=False, action="store_true",
+        help="List the available detectors")
+    parser.add_argument(
+        "--detectors", dest="detectors", default="",
+        help="Use specific detectors, not all available")
 
     args = parser.parse_args()
+
+    if args.list_detectors:
+        print("AVAILABLE DETECTORS:")
+        for class_name in ALL_SCANNED_DETECTORS:
+            print(" " + class_name)
+        sys.exit(0)
+
+    if args.detectors:
+        if args.detectors in ALL_SCANNED_DETECTORS:
+            detectors = [ALL_SCANNED_DETECTORS[args.detectors]]
+        else:
+            print("Detector named '{}' not available.".format(args.detectors))
+            sys.exit(1)
+    else:
+        detectors = ALL_SCANNED_DETECTORS.values()
 
     if not args.file:
         # If no file is passed, then read from stdin
@@ -29,7 +50,7 @@ def main():
         doc = Document(args.file)
 
     reports = []
-    for detector in ALL_DETECTORS:
+    for detector in detectors:
         reports.append(detector().get_report(doc))
 
     if not args.json:
