@@ -50,8 +50,10 @@ Let's include the wordlist as a variable named `AMPHIBIAN_WORDS`:
 
 ```python
 from genderbias.detector import Detector, Flag, Issue, Report
+import os
 
-AMPHIBIAN_WORDS = open(_dir + "/wordlist.txt", 'r').readlines()
+_dir = os.path.dirname(__file__)
+AMPHIBIAN_WORDS = [word.strip() for word in open(_dir + "/wordlist.txt", 'r').readlines()]
 
 class AmphibianDetector(Detector):
 
@@ -67,8 +69,10 @@ Let's flag any time one of the words from our wordlist comes up (using the `Flag
 
 ```python
 from genderbias.detector import Detector, Flag, Issue, Report
+import os
 
-AMPHIBIAN_WORDS = open(_dir + "/wordlist.txt", 'r').readlines()
+_dir = os.path.dirname(__file__)
+AMPHIBIAN_WORDS = [word.strip() for word in open(_dir + "/wordlist.txt", 'r').readlines()]
 
 class AmphibianDetector(Detector):
 
@@ -91,12 +95,56 @@ class AmphibianDetector(Detector):
 
 ```
 
+By default a `Flag` is considered an element to avoid; the strength of this can
+be specified by passing in a `bias` parameter to `Issue`, from the default
+`Issue.negative_result` to a positive response of `Issue.positive_result`.
+These are simply aliases, to -1.0 and +1.0 respectively, and any value between
+may be passed to to indicate the relative strength with which to avoid the
+Issue.
+
+For example, we could do the following to flag that 'bird' is just fine:
+
+```python
+from genderbias.detector import Detector, Flag, Issue, Report
+import os
+
+_dir = os.path.dirname(__file__)
+AMPHIBIAN_WORDS = [word.strip() for word in open(_dir + "/wordlist.txt", 'r').readlines()]
+
+class AmphibianDetector(Detector):
+
+    def get_report(self, doc):
+        amphibian_report = Report("Amphibians")
+        words_with_indices = doc.words_with_indices()
+
+        for word, start, stop in words_with_indices:
+            if word.lower() == "bird":
+                amphibian_report.add_flag(
+                    Flag(start, stop, Issue("AmphibianWord",
+                                            "This word seems fine!",
+                                            bias=Issue.positive_result)))
+            if word.lower() in AMPHIBIAN_WORDS:
+                amphibian_report.add_flag(
+                    Flag(start, stop, Issue(
+                        "AmphibianWord",
+                        "You shouldn't call someone an amphibian. '{word}' is an amphibian-sounding word.".format(
+                            word=word),
+                        "Try replacing with phrasing that emphasizes that this person is a human."
+                    ))
+                )
+
+        return amphibian_report
+
+```
+
 We can also, optionally, set a summary of our findings:
 
 ```python
 from genderbias.detector import Detector, Flag, Issue, Report
+import os
 
-AMPHIBIAN_WORDS = open(_dir + "/wordlist.txt", 'r').readlines()
+_dir = os.path.dirname(__file__)
+AMPHIBIAN_WORDS = [word.strip() for word in open(_dir + "/wordlist.txt", 'r').readlines()]
 
 class AmphibianDetector(Detector):
 
@@ -105,7 +153,12 @@ class AmphibianDetector(Detector):
         words_with_indices = doc.words_with_indices()
 
         found_amphibian = False
-        for word, start, stop in token_indices:
+        for word, start, stop in words_with_indices:
+            if word.lower() == "bird":
+                amphibian_report.add_flag(
+                    Flag(start, stop, Issue("AmphibianWord",
+                                            "This word seems fine!",
+                                            bias=Issue.positive_result)))
             if word.lower() in AMPHIBIAN_WORDS:
                 found_amphibian = True
                 amphibian_report.add_flag(
@@ -144,3 +197,24 @@ Amphibians
  [50-54] AmphibianWord: You shouldn't call someone an amphibian. 'frog' is an amphibian-sounding word. Try replacing with phrasing that emphasizes that this person is a human.
  SUMMARY: Found some amphibian words. These are highly recommended against being used.
 ```
+
+To quickly test that we're picking up the words, we can run the following, substituting your own text:
+
+```shell
+$ echo "The toad and frog were not always friendly with the bird" | genderbias --detector AmphibianDetector
+Amphibians
+ [4-8]: AmphibianWord: You shouldn't call someone an amphibian. 'toad' is an amphibian-sounding word. (Try replacing with phrasing that emphasizes that this person is a human.)
+ [13-17]: AmphibianWord: You shouldn't call someone an amphibian. 'frog' is an amphibian-sounding word. (Try replacing with phrasing that emphasizes that this person is a human.)
+ SUMMARY: Found some amphibian words. These are highly recommended against being used.
+```
+
+You will notice that the string output does not show the positive result, since this is not currently enabled.
+
+This can be seen in the JSON output, via the very similar:
+
+```shell
+$ echo "The toad and frog were not always friendly with the bird" | genderbias --json --detector AmphibianDetector
+[{"name": "Amphibians", "summary": "Found some amphibian words. These are highly recommended against being used.", "flags": [[0.0, 4, 8, "AmphibianWord", "You shouldn't call someone an amphibian. 'toad' is an amphibian-sounding word.", "Try replacing with phrasing that emphasizes that this person is a human."], [0.0, 13, 17, "AmphibianWord", "You shouldn't call someone an amphibian. 'frog' is an amphibian-sounding word.", "Try replacing with phrasing that emphasizes that this person is a human."], [1.0, 52, 56, "AmphibianWord", "This word seems fine!", ""]]}]
+```
+
+Note that other Detector output may be shown, but this is trimmed to focus on the new Detector class when we include the `--detector AmphibianDetector`.
