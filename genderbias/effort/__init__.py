@@ -68,7 +68,8 @@ class EffortDetector(Detector):
                         "Effort vs Accomplishment",
                         "The word '{word}' tends to speak about effort more than accomplishment.".format(
                             word=word),
-                        "Try replacing with phrasing that emphasizes accomplishment."
+                        "Try replacing with phrasing that emphasizes accomplishment.",
+                        bias=Issue.negative_result
                     ))
                 )
             if word.lower() in ACCOMPLISHMENT_WORDS:
@@ -76,7 +77,8 @@ class EffortDetector(Detector):
                     Flag(start, stop, Issue(
                         "Effort vs Accomplishment",
                         "The word '{word}' tends to speak about accomplishment more than effort.".format(
-                            word=word)
+                            word=word),
+                        bias=Issue.positive_result
                     ))
                 )
 
