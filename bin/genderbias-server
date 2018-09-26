@@ -1,0 +1,80 @@
+#!/usr/bin/env python3
+
+from flask import Flask, request, jsonify
+from flask_cors import CORS
+
+import argparse
+import sys
+import json
+
+from genderbias import ALL_SCANNED_DETECTORS, Document
+
+
+SERVER_VERSION = "0.1.0"
+APP = Flask(__name__)
+CORS(APP)
+
+
+# Parse arguments. If the --detectors flag is used, then only use the detectors
+# that are requested.
+parser = argparse.ArgumentParser(
+    description="Flask-based server for gender-bias detection over REST API"
+)
+parser.add_argument(
+    "--detectors", dest="detectors", default="",
+    help="Use specific detectors, not all available"
+)
+
+args = parser.parse_args()
+
+if args.detectors:
+    if args.detectors in ALL_SCANNED_DETECTORS:
+        detectors = [ALL_SCANNED_DETECTORS[args.detectors]]
+    else:
+        print("Detector named '{}' not available.".format(args.detectors))
+        sys.exit(1)
+else:
+    detectors = ALL_SCANNED_DETECTORS.values()
+
+
+
+
+@APP.route("/")
+def route_home():
+    """
+    A "heartbeat" route for the homepage.
+
+    Returns:
+        str
+
+    """
+    return "genderbias server v{}".format(SERVER_VERSION)
+
+
+@APP.route("/check", methods=["POST"])
+def route_check():
+    """
+    Check POSTed text for gender bias.
+
+    POST an application/json body with a "text" key and string value; results
+    will be returned in the form:
+
+    {
+        reports: List[dict]
+    }
+
+    Where each report has zero or more flags.
+
+    """
+    doc = Document(request.json['text'])
+
+    reports = []
+    for detector in detectors:
+        reports.append(detector().get_report(doc))
+
+    reports_data = [report.to_dict() for report in reports]
+    return jsonify({"reports": reports_data})
+
+
+# Run the server.
+APP.run(host="0.0.0.0", debug=True)
