@@ -1,0 +1,2 @@
+include genderbias/**/*.wordlist
+include *.wordlist

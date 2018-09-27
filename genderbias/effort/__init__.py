@@ -21,12 +21,12 @@ _dir = os.path.dirname(__file__)
 ACCOMPLISHMENT_WORDS = [
     w.strip()
     for w in open(
-    _dir + "/accomplishment_words.txt", 'r').readlines()
+    _dir + "/accomplishment_words.wordlist", 'r').readlines()
 ]
 
 EFFORT_WORDS = [
     w.strip()
-    for w in open(_dir + "/effort_words.txt", 'r').readlines()
+    for w in open(_dir + "/effort_words.wordlist", 'r').readlines()
 ]
 
 

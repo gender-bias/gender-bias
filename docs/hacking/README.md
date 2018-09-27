@@ -23,7 +23,7 @@ If you are unfamiliar with Python submodules and why we use the weird name `__in
 
 ### Creating a wordlist
 
-Next, let's construct a word-list of words we want to flag. In a file named `wordlist.txt` in the `amphibian/` directory, write the following, each word on its own line:
+Next, let's construct a word-list of words we want to flag. In a file named `wordlist.wordlist` in the `amphibian/` directory, write the following, each word on its own line:
 
 ```
 frog
@@ -53,7 +53,7 @@ from genderbias.detector import Detector, Flag, Issue, Report
 import os
 
 _dir = os.path.dirname(__file__)
-AMPHIBIAN_WORDS = [word.strip() for word in open(_dir + "/wordlist.txt", 'r').readlines()]
+AMPHIBIAN_WORDS = [word.strip() for word in open(_dir + "/wordlist.wordlist", 'r').readlines()]
 
 class AmphibianDetector(Detector):
 
@@ -72,7 +72,7 @@ from genderbias.detector import Detector, Flag, Issue, Report
 import os
 
 _dir = os.path.dirname(__file__)
-AMPHIBIAN_WORDS = [word.strip() for word in open(_dir + "/wordlist.txt", 'r').readlines()]
+AMPHIBIAN_WORDS = [word.strip() for word in open(_dir + "/wordlist.wordlist", 'r').readlines()]
 
 class AmphibianDetector(Detector):
 
@@ -109,7 +109,7 @@ from genderbias.detector import Detector, Flag, Issue, Report
 import os
 
 _dir = os.path.dirname(__file__)
-AMPHIBIAN_WORDS = [word.strip() for word in open(_dir + "/wordlist.txt", 'r').readlines()]
+AMPHIBIAN_WORDS = [word.strip() for word in open(_dir + "/wordlist.wordlist", 'r').readlines()]
 
 class AmphibianDetector(Detector):
 
@@ -144,7 +144,7 @@ from genderbias.detector import Detector, Flag, Issue, Report
 import os
 
 _dir = os.path.dirname(__file__)
-AMPHIBIAN_WORDS = [word.strip() for word in open(_dir + "/wordlist.txt", 'r').readlines()]
+AMPHIBIAN_WORDS = [word.strip() for word in open(_dir + "/wordlist.wordlist", 'r').readlines()]
 
 class AmphibianDetector(Detector):
 
@@ -192,7 +192,7 @@ AmphibianDetector
 If it's listed using the above command, then we're done! Now, when users run `genderbias`, it will detect if they have called someone some sort of amphibian-sounding word:
 
 ```shell
-$ genderbias --file my-letter.txt
+$ genderbias --file my-letter.wordlist
 Amphibians
  [50-54] AmphibianWord: You shouldn't call someone an amphibian. 'frog' is an amphibian-sounding word. Try replacing with phrasing that emphasizes that this person is a human.
  SUMMARY: Found some amphibian words. These are highly recommended against being used.

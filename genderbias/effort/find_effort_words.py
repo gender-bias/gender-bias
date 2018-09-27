@@ -17,13 +17,13 @@ parser.add_argument(
 
 # optional argument for effort words file
 parser.add_argument(
-  '-e', '--effort_file', dest='effort_file', default="effort_words.txt",
+  '-e', '--effort_file', dest='effort_file', default="effort_words.wordlist",
   metavar="<effort file>",
   help='name of file containing effort words')
 
 # optional argument for accomplishment words file
 parser.add_argument(
-  '-a', '--accomplishment_file', dest='accomplishment_file', default="accomplishment_words.txt",
+  '-a', '--accomplishment_file', dest='accomplishment_file', default="accomplishment_words.wordlist",
   metavar="<accomplishment file>",
   help='name of file containing accomplishment words')
 
