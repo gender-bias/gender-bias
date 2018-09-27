@@ -78,7 +78,7 @@ class Flag:
     issue (what is wrong with the passage) and start-stop character indices.
     """
 
-    def __init__(self, start: int, stop: int, issue: 'Issue'):
+    def __init__(self, start: int, stop: int, issue: 'Issue') -> None:
         """
         Create a new Flag.
 
@@ -101,7 +101,7 @@ class Flag:
             )
         self.issue = issue
 
-    def __str__(self):
+    def __str__(self) -> str:
         """
         Stringify the Flag.
 
@@ -125,7 +125,7 @@ class Report:
     as defined above. Output is provided as a string.
     """
 
-    def __init__(self, name):
+    def __init__(self, name: str) -> None:
         """
         Create a new Report with a given name (title).
 
@@ -141,7 +141,7 @@ class Report:
         self._flags = []
         self._summary = None
 
-    def __str__(self):
+    def __str__(self) -> str:
         """
         Generates a string from the report
 
@@ -157,7 +157,7 @@ class Report:
         text.append(" SUMMARY: " + (self._summary if self._summary else "[None available]"))
         return "\n".join(text)
 
-    def add_flag(self, flag):
+    def add_flag(self, flag: 'Flag') -> None:
         """
         Adds a `Flag` object to the Report, marking a specific part of the text.
 
@@ -169,7 +169,7 @@ class Report:
         """
         self._flags.append(flag)
 
-    def set_summary(self, summary):
+    def set_summary(self, summary: str) -> None:
         """
         Sets the summary for the report.
 
@@ -181,7 +181,7 @@ class Report:
         """
         self._summary = summary
 
-    def to_dict(self):
+    def to_dict(self) -> dict:
         """
         Converts the Report into a `dict` of items, suitable for conversion to
         JSON.
@@ -207,11 +207,11 @@ class Detector:
     For an example implementation tutorial, look at `docs/hacking.md`.
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         pass
 
     @abstractmethod
-    def get_report(self, doc):
+    def get_report(self, doc: 'Document'):
         """
         Returns a Report for a document.
         """
