@@ -66,14 +66,18 @@ def route_check():
     Where each report has zero or more flags.
 
     """
-    doc = Document(request.json['text'])
+    text = request.json['text']
+    doc = Document(text)
 
     reports = []
     for detector in detectors:
         reports.append(detector().get_report(doc))
 
     reports_data = [report.to_dict() for report in reports]
-    return jsonify({"reports": reports_data})
+    return jsonify({
+        "issues": reports_data,
+        "text": request.json['text']
+    })
 
 
 # Run the server.
