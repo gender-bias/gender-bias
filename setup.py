@@ -24,6 +24,8 @@ VERSION = "0.1.0"
 REQUIRED = [
     # TODO: Extend this list as further dependencies are determined
     'nltk',
+    "flask",
+    "flask-cors"
 ]
 
 # What packages are suggested for doing development?
@@ -90,7 +92,10 @@ setup(
     python_requires=REQUIRES_PYTHON,
     url=URL,
     packages=find_packages(exclude=('tests',)),
-    scripts=['bin/genderbias'],
+    scripts=[
+        'bin/genderbias',           # A command-line executable
+        'bin/genderbias-server',    # REST API served using Flask
+    ],
     install_requires=REQUIRED,
     extras_require={
         'dev': DEVELOPING_REQS,
