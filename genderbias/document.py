@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+from typing import List, Tuple
+
 import os
 import nltk
 from contextlib import redirect_stdout
@@ -30,7 +32,7 @@ class Document:
     basic textwise feature extraction, such as listing words or sentences.
     """
 
-    def __init__(self, document, **kwargs):
+    def __init__(self, document: 'Document', **kwargs) -> None:
         """
         Create a new Document.
 
@@ -56,7 +58,7 @@ class Document:
                 self._text = f.read()
 
     @cached
-    def sentences(self):
+    def sentences(self) -> List[str]:
         """
         Compute a list of sentences.
 
@@ -69,7 +71,7 @@ class Document:
         return [s.replace('\n', ' ') for s in nltk.sent_tokenize(self._text)]
 
     @cached
-    def words(self):
+    def words(self) -> List[str]:
         """
         Compute a list of words from this Document.
 
@@ -82,7 +84,7 @@ class Document:
         return nltk.word_tokenize(self._text)
 
     @cached
-    def words_with_indices(self):
+    def words_with_indices(self) -> List[Tuple[str, int, int]]:
         """
         Compute a list of words, with beginning and end indices
 
@@ -98,7 +100,7 @@ class Document:
         return token_indices
 
     @cached
-    def words_by_part_of_speech(self):
+    def words_by_part_of_speech(self) -> dict:
         """
         Compute the parts of speech for each word in the document.
 
@@ -116,7 +118,7 @@ class Document:
         return categories
 
     @cached
-    def stemmed_words(self):
+    def stemmed_words(self) -> List:
         """
         Compute the stems of words.
 
