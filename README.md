@@ -13,6 +13,7 @@ Thank you for visiting the Reading for Gender Bias project!
 This document (the README file) introduces you to the project.  Feel free to explore by section or just scroll through.
 
 * [What is the project about? (And why does it matter?)](#what-is-the-project-about)
+* [Usage](#usage)
 * [About the founder](#about-the-founder)
 * [How can you get involved?](#how-can-you-get-involved)
 * [Contact me](#contact-me)
@@ -36,6 +37,141 @@ Reading for Gender Bias is a web-based text analysis tool that:
 * Scans evaluations or letters for language associated with bias
 * Summarizes changes that would reduce bias for the writer
 * Increases awareness of gender bias
+
+## Usage
+
+This document is currently a work-in-progress; please feel free to ask for clarification in the Issues tab of this repository, or on our slack workspace (details below).
+
+### Installation
+
+Currently, the most reliable way to download and start using this code is to clone it from this repository and install it using pip:
+
+```shell
+git clone https://github.com/gender-bias/gender-bias
+cd gender-bias
+pip3 install -e .
+```
+
+> **NOTE**: The last line in the above snippet installs this library in "editable" mode, which is probably fine while the library is in a state of flux.
+
+This installation process will add a new command-line tool to your PATH, called `genderbias`.
+
+### Usage
+
+#### Learning about usage
+
+```shell
+genderbias -h
+
+usage: genderbias [-h] [--file FILE] [--json] [--list-detectors]
+                  [--detectors DETECTORS]
+
+CLI for gender-bias detection
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --file FILE, -f FILE  The file to check
+  --json, -j            Enable JSON output, instead of text
+  --list-detectors      List the available detectors
+  --detectors DETECTORS
+                        Use specific detectors, not all available
+```
+
+You can probably ignore most of these options when getting started.
+
+#### Checking a document
+
+There are two ways to check a document: 
+
+##### Option 1: Standard-In
+
+This option streams a file from stdin and writes its suggestions to stdout. You can use it like this:
+
+```shell
+cat my-file.txt | genderbias
+```
+
+If you don't have a text file handy, you can try it out on one of ours:
+
+```shell
+cat ./example_letters/letterofRecW | genderbias
+```
+
+The tool will print its suggestions out to stdout:
+
+```
+Effort vs Accomplishment
+ [516-527]: Effort vs Accomplishment: The word 'willingness' tends to speak about effort more than accomplishment. (Try replacing with phrasing that emphasizes accomplishment.)
+ [2915-2926]: Effort vs Accomplishment: The word 'willingness' tends to speak about effort more than accomplishment. (Try replacing with phrasing that emphasizes accomplishment.)
+ [3338-3347]: Effort vs Accomplishment: The word 'dedicated' tends to speak about effort more than accomplishment. (Try replacing with phrasing that emphasizes accomplishment.)
+ [3492-3502]: Effort vs Accomplishment: The word 'commitment' tends to speak about effort more than accomplishment. (Try replacing with phrasing that emphasizes accomplishment.)
+ [3524-3533]: Effort vs Accomplishment: The word 'tenacious' tends to speak about effort more than accomplishment. (Try replacing with phrasing that emphasizes accomplishment.)
+ [3706-3716]: Effort vs Accomplishment: The word 'commitment' tends to speak about effort more than accomplishment. (Try replacing with phrasing that emphasizes accomplishment.)
+ SUMMARY: This document has a high ratio (6:1) of words suggesting effort to words suggesting concrete accomplishment.
+ ```
+ 
+If you'd rather that the tool print its suggestions to another file, you can use the following:
+
+```shell
+cat ./example_letters/letterofRecW | genderbias > edits-to-made.txt
+```
+
+##### Option 2: Specify a file with a flag
+
+This functionality is EXACTLY the same; just a matter of how you prefer to run the tool!
+
+```shell
+genderbias -f ./example_letters/letterofRecW
+```
+
+The `-f` or `--file` flag can be used to specify a file.
+
+### How to interpret output
+
+The output of this tool is a _character-index span_ that you can think of as "highlighting" the problematic (or potentially-problematic) text. Our intention is to add a more human-readable form as well; **if you're interested in helping develop that capability, please get in touch!**
+
+### Using the tool as a REST server
+
+The tool can also be run as a REST server in order to operate on text sent from a front-end — for example, [our client-side website](https://github.com/gender-bias/reading-for-genderbias-web). To run the server, run the following:
+
+```shell
+genderbias-server
+```
+
+This will start a Flask server listening on port 5000.
+
+To use this server, send a POST requests to the `/check` endpoint, with a JSON body of the following form:
+
+```json
+{
+    "text": "My text goes here"
+}
+```
+
+For example, in Python, using `requests`:
+
+```python
+import requests
+
+response = requests.post(
+    "http://localhost:5000/check", 
+    headers={"Content-Type": "application/json"}, 
+    data={"text": "this is my text"}
+)
+
+print(response.json())
+```
+
+The response is JSON of the form:
+
+```json
+{
+    "issues": List[genderbias.Issue],
+    "text": <the same text you sent, for reference>
+}
+```
+
+
 
 ## About the founder
 
