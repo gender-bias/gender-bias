@@ -15,10 +15,12 @@ GOOD_DOCUMENTS = [
 def test_bad_documents_trip_detector():
     for doc in BAD_DOCUMENTS:
         text = str(EffortDetector().get_report(Document(doc)))
-        assert len(text.split("\n")) > 2
+        assert len(text.split("\n")) == 2
 
 
 def test_good_documents_pass_detector():
     for doc in GOOD_DOCUMENTS:
-        text = str(EffortDetector().get_report(Document(doc)))
+        report = EffortDetector().get_report(Document(doc))
+        report.set_summary("MY_SUMMARY")
+        text = str(report)
         assert len(text.split("\n")) == 2

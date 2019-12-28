@@ -151,11 +151,7 @@ class Report:
         Returns:
             str: Multiline text
         """
-        text = [self._name]
-        if self._flags:
-            text += [" " + str(flag) for flag in self._flags if flag.issue.bias == Issue.negative_result]
-        text.append(" SUMMARY: " + (self._summary if self._summary else "[None available]"))
-        return "\n".join(text)
+        return self.to_string()
 
     def add_flag(self, flag: 'Flag') -> None:
         """
@@ -181,6 +177,25 @@ class Report:
         """
         self._summary = summary
 
+    def to_string(self) -> str:
+        """
+        Converts the Report into a string, which can be printed to stdout.
+
+        Arguments:
+            None
+
+        Returns:
+            str: A String representation of the Report
+
+        """
+        text = [self._name]
+        if self._flags:
+            text += [" " + str(flag) for flag in self._flags if flag.issue.bias == Issue.negative_result]
+        if self._summary:
+            text.append(" SUMMARY: " + self._summary)
+        return "\n".join(text)
+
+
     def to_dict(self) -> dict:
         """
         Converts the Report into a `dict` of items, suitable for conversion to
@@ -193,12 +208,18 @@ class Report:
             dict: str values for the keys 'name', 'summary', with 'flags' being
             a list of tuples (bias, start, stop, name, description, fix)
         """
-        return dict(name=self._name,
-                    summary=(self._summary if self._summary else ""),
-                    flags=[(flag.start, flag.stop, flag.issue.name,
-                            flag.issue.description, flag.issue.fix, flag.issue.bias)
-                           for flag in self._flags]
-        )
+        return {
+            "name": self._name,
+            "summary": (self._summary if self._summary else ""),
+            "flags": [
+                (
+                    flag.start, flag.stop,
+                    flag.issue.name,
+                    flag.issue.description,
+                    flag.issue.fix, flag.issue.bias
+                ) for flag in self._flags
+            ]
+        }
 
 
 class Detector:
