@@ -1,4 +1,3 @@
-
 from abc import abstractmethod
 
 
@@ -24,12 +23,14 @@ class Issue:
     positive_result = +1.0
     negative_result = -1.0
 
-    def __init__(self, name: str, description: str = "", fix: str = "", bias=negative_result):
+    def __init__(
+        self, name: str, description: str = "", fix: str = "", bias=negative_result
+    ):
         """
         Create a new Issue.
 
         The bias indicates how strongly the flagged item might be avoided, from
-        negative_result (0.0) for things to reconsider, to positive_result
+        negative_result (-1.0) for things to reconsider, to positive_result
         (1.0) for items which are considered favorable.
 
         Arguments:
@@ -62,7 +63,9 @@ class Issue:
             str: The Issue, formatted as: `Name: Description. (Fix)`
 
         """
-        if self.bias != Issue.negative_result:  # Maybe users should always check for bias instead?
+        if (
+            self.bias != Issue.negative_result
+        ):  # Maybe users should always check for bias instead?
             return ""
         result = self.name
         if self.description:
@@ -78,7 +81,7 @@ class Flag:
     issue (what is wrong with the passage) and start-stop character indices.
     """
 
-    def __init__(self, start: int, stop: int, issue: 'Issue') -> None:
+    def __init__(self, start: int, stop: int, issue: "Issue") -> None:
         """
         Create a new Flag.
 
@@ -113,9 +116,7 @@ class Flag:
 
         """
         return "[{start}-{stop}]: {msg}".format(
-            start=self.start,
-            stop=self.stop,
-            msg=str(self.issue)
+            start=self.start, stop=self.stop, msg=str(self.issue)
         )
 
 
@@ -153,7 +154,7 @@ class Report:
         """
         return self.to_string()
 
-    def add_flag(self, flag: 'Flag') -> None:
+    def add_flag(self, flag: "Flag") -> None:
         """
         Adds a `Flag` object to the Report, marking a specific part of the text.
 
@@ -190,11 +191,14 @@ class Report:
         """
         text = [self._name]
         if self._flags:
-            text += [" " + str(flag) for flag in self._flags if flag.issue.bias == Issue.negative_result]
+            text += [
+                " " + str(flag)
+                for flag in self._flags
+                if flag.issue.bias == Issue.negative_result
+            ]
         if self._summary:
             text.append(" SUMMARY: " + self._summary)
         return "\n".join(text)
-
 
     def to_dict(self) -> dict:
         """
@@ -213,12 +217,15 @@ class Report:
             "summary": (self._summary if self._summary else ""),
             "flags": [
                 (
-                    flag.start, flag.stop,
+                    flag.start,
+                    flag.stop,
                     flag.issue.name,
                     flag.issue.description,
-                    flag.issue.fix, flag.issue.bias
-                ) for flag in self._flags
-            ]
+                    flag.issue.fix,
+                    flag.issue.bias,
+                )
+                for flag in self._flags
+            ],
         }
 
 
@@ -232,7 +239,7 @@ class Detector:
         pass
 
     @abstractmethod
-    def get_report(self, doc: 'Document'):
+    def get_report(self, doc: "Document"):
         """
         Returns a Report for a document.
         """
