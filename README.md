@@ -256,6 +256,8 @@ Studies on gender bias show that letters/evaluations written for women are:
 
 ### Raise Doubt
 * Trix, F. & Psenka, C., "Exploring the color of glass: Letters of recommendation for female and male medical faculty," Discourse & Society 14(2003): 191-220. [[Link](http://journals.sagepub.com/doi/abs/10.1177/0957926503014002277)] [[PDF](http://journals.sagepub.com/doi/pdf/10.1177/0957926503014002277)]
+* Madera, J. M., Hebl, M. R., Dial, H., Martin, R., & Valian, V. (2019). Raising doubt in letters of recommendation for academia: gender differences and their impact. Journal of Business and Psychology, 34(3), 287-303.
+[[Link](http://link.springer.com/10.1007/s10869-018-9541-1)]
 
 ### Shorter
 * Dutt, K., Pfaff, D. L., Bernstein, A. F., Dillard, J. S., & Block, C. J. (2016). Gender differences in recommendation letters for postdoctoral fellowships in geoscience. Nature Geoscience, 9(11), 805. [[Link](https://www.nature.com/articles/ngeo2819)]
