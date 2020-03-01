@@ -57,6 +57,16 @@ class Document:
             with open(document, 'r') as f:
                 self._text = f.read()
 
+
+    def text(self) -> str:
+        """
+        Returns the text of the document.
+
+        Returns:
+            str
+        """
+        return self._text
+
     @cached
     def sentences(self) -> List[str]:
         """
