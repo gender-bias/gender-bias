@@ -6,7 +6,7 @@ from typing import List, Dict
 import re
 
 from genderbias.document import Document
-from genderbias.detector import Detector, Flag, Issue
+from genderbias.detector import Detector, Report, Flag, Issue
 
 
 def identify_publications(doc: Document) -> Dict[str, float]:
@@ -32,9 +32,11 @@ def identify_publications(doc: Document) -> Dict[str, float]:
     ]
     potential_publications = {}
     # First, do the very easy thing: Let's look for callouts to arXiv# or DOIs.
+    # TODO
     pass
 
     # Next, look for common markers of authorship, such as "et al".
+    # TODO
     pass
 
     # Anything in quotes get a low probability:
@@ -42,7 +44,7 @@ def identify_publications(doc: Document) -> Dict[str, float]:
     rxp = re.compile('"[^"]+"')
     for match in re.findall(rxp, doc._text):
         if match not in potential_publications:
-            potential_publications[match] = 0.
+            potential_publications[match] = 0.0
         potential_publications[match] += 0.25
 
     return potential_publications
@@ -80,7 +82,7 @@ class PublicationDetector(Detector):
         super().__init__()
         self.min_publications = kwargs.get("min_publications", 0.5)
 
-    def get_flags(self, doc: 'Document') -> List['Flag']:
+    def get_flags(self, doc: "Document") -> List["Flag"]:
         """
         Flag a document (globally) if we cannot find any research products.
 
@@ -96,13 +98,33 @@ class PublicationDetector(Detector):
         # one single publication.
         pub_count = sum(identify_publications(doc).values())
         if pub_count < self.min_publications:
-            all_flags.append(Flag(
-                0, 0,
-                Issue(
-                    "Publications",
-                    "This document does not mention many publications.",
-                    "Try referencing more concrete publications or work "
-                    "byproducts, if possible."
-                ))
+            all_flags.append(
+                Flag(
+                    0,
+                    0,
+                    Issue(
+                        "Publications",
+                        "This document does not mention many publications.",
+                        "Try referencing more concrete publications or work "
+                        "byproducts, if possible.",
+                    ),
+                )
             )
         return all_flags
+
+    def get_report(self, doc):
+        """
+        Generate a report on the text based upon mentions of publications.
+
+        Arguments:
+            doc (Document): The document to check
+
+        Returns:
+            Report
+
+        """
+        report = Report("Publications")
+
+        for flag in self.get_flags(doc):
+            report.add_flag(flag)
+        return report
