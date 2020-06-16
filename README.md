@@ -156,7 +156,7 @@ import requests
 response = requests.post(
     "http://localhost:5000/check", 
     headers={"Content-Type": "application/json"}, 
-    data={"text": "this is my text"}
+    json={"text": "this is my text"}
 )
 
 print(response.json())
