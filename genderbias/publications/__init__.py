@@ -143,7 +143,8 @@ class PublicationDetector(Detector):
 
         """
         report = Report("Publications")
-
+        report.set_summary(self.get_summary(doc))
+        
         for flag in self.get_flags(doc):
             report.add_flag(flag)
         return report

@@ -30,3 +30,9 @@ def test_good_letters_fail_high_thresh_detector():
     for letter in GOOD_LETTERS + BAD_LETTERS:
         doc = Document(letter)
         assert "" != picky_detector.get_summary(doc)
+
+def test_report_summary():
+   for letter in BAD_LETTERS:
+        doc = Document(letter)
+        report = pub_detector.get_report(doc)
+        assert "SUMMARY" in report.to_string()
