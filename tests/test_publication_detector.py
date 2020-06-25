@@ -36,3 +36,10 @@ def test_report_summary():
         doc = Document(letter)
         report = pub_detector.get_report(doc)
         assert "SUMMARY" in report.to_string()
+
+def test_no_flags():
+   for letter in BAD_LETTERS:
+        doc = Document(letter)
+        report = pub_detector.get_report(doc)
+        report_dict = report.to_dict()
+        assert not report_dict["flags"]

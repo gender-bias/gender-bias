@@ -100,36 +100,6 @@ class PublicationDetector(Detector):
                         "Try referencing more concrete publications or work " + \
                         "byproducts, if possible."
         return summary
-    
-    def get_flags(self, doc: "Document") -> List["Flag"]:
-        """
-        Flag a document (globally) if we cannot find any research products.
-
-        Returns only a single flag if no publications/resources are mentioned.
-        """
-        all_flags = []
-        # TODO: Any other flags needed here?
-
-        # Sum up all of the probabilities of all publications. This is a bit
-        # janky, but it acts as a proxy for the total number of publications
-        # mentioned. For example, if there are two potential publications each
-        # with a probability of 50%, then we could consider that a mention of
-        # one single publication.
-        pub_count = sum(identify_publications(doc).values())
-        if pub_count < self.min_publications:
-            all_flags.append(
-                Flag(
-                    0,
-                    0,
-                    Issue(
-                        "Publications",
-                        "This document does not mention many publications.",
-                        "Try referencing more concrete publications or work "
-                        "byproducts, if possible.",
-                    ),
-                )
-            )
-        return all_flags
 
     def get_report(self, doc):
         """
@@ -144,7 +114,4 @@ class PublicationDetector(Detector):
         """
         report = Report("Publications")
         report.set_summary(self.get_summary(doc))
-        
-        for flag in self.get_flags(doc):
-            report.add_flag(flag)
         return report
