@@ -82,6 +82,25 @@ class PublicationDetector(Detector):
         super().__init__()
         self.min_publications = kwargs.get("min_publications", 0.5)
 
+    def get_summary(self, doc: "Document") -> str:
+        """
+        Returns a string representing summary feedback on publications.
+        This will indicate if not enough publications were found.
+        Otherwise it will be empty.
+        """
+        # Sum up all of the probabilities of all publications. This is a bit
+        # janky, but it acts as a proxy for the total number of publications
+        # mentioned. For example, if there are two potential publications each
+        # with a probability of 50%, then we could consider that a mention of
+        # one single publication.
+        summary = ""
+        pub_count = sum(identify_publications(doc).values())
+        if pub_count < self.min_publications:
+            summary =   "This document does not mention many publications. " + \
+                        "Try referencing more concrete publications or work " + \
+                        "byproducts, if possible."
+        return summary
+    
     def get_flags(self, doc: "Document") -> List["Flag"]:
         """
         Flag a document (globally) if we cannot find any research products.

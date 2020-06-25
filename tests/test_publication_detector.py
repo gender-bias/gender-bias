@@ -18,15 +18,15 @@ pub_detector = PublicationDetector()
 def test_bad_letters_fail():
     for letter in BAD_LETTERS:
         doc = Document(letter)
-        assert pub_detector.get_flags(doc)
+        assert "" != pub_detector.get_summary(doc)
 
 def test_good_letters_pass():
     for letter in GOOD_LETTERS:
         doc = Document(letter)
-        assert len(pub_detector.get_flags(doc)) == 0
+        assert "" == pub_detector.get_summary(doc)
 
 def test_good_letters_fail_high_thresh_detector():
     picky_detector = PublicationDetector(min_publications=10)
     for letter in GOOD_LETTERS + BAD_LETTERS:
         doc = Document(letter)
-        assert picky_detector.get_flags(doc)
+        assert "" != picky_detector.get_summary(doc)
