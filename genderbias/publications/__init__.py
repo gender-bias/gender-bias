@@ -3,7 +3,7 @@ Tools for identifying mention of publications.
 """
 from typing import List, Dict
 
-import re
+import re, math
 
 from genderbias.document import Document
 from genderbias.detector import Detector, Report, Flag, Issue
@@ -31,6 +31,7 @@ def identify_publications(doc: Document) -> Dict[str, float]:
         "et al",
     ]
     potential_publications = {}
+    
     # First, do the very easy thing: Let's look for callouts to arXiv# or DOIs.
     # TODO
     pass
@@ -99,6 +100,12 @@ class PublicationDetector(Detector):
             summary =   "This document does not mention many publications. "\
                         "Try referencing more concrete publications or work "\
                         "byproducts, if possible."
+        elif self.min_publications > 1:
+            summary =   "The text appears to mention at least {:n} publications."\
+                        .format(math.ceil(self.min_publications))
+            print(summary)
+        else:
+            summary =   "The text appears to mention at least one publication."
         return summary
 
     def get_report(self, doc):
