@@ -96,8 +96,8 @@ class PublicationDetector(Detector):
         summary = ""
         pub_count = sum(identify_publications(doc).values())
         if pub_count < self.min_publications:
-            summary =   "This document does not mention many publications. " + \
-                        "Try referencing more concrete publications or work " + \
+            summary =   "This document does not mention many publications. "\
+                        "Try referencing more concrete publications or work "\
                         "byproducts, if possible."
         return summary
 
