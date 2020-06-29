@@ -197,7 +197,7 @@ class Report:
         text = [self._name]
         if self._flags:
             text += [
-                " " + str(flag)
+                "  " + str(flag)
                 for flag in self._flags
                 if flag.issue.bias == Issue.negative_result
             ]
