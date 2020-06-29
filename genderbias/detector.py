@@ -1,5 +1,7 @@
 from abc import abstractmethod
 
+from .document import Document
+
 
 class BiasBoundsException(Exception):
     pass
