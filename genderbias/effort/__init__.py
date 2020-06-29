@@ -91,7 +91,7 @@ class EffortDetector(Detector):
             report.add_flag(flag)
 
         if (
-            len(accomplishment_flags) is 0
+            len(accomplishment_flags) == 0
             or len(effort_flags) / len(accomplishment_flags) > 1.2  # TODO: Arbitrary!
         ):
             # Avoid divide-by-zero errors

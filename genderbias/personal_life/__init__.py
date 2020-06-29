@@ -25,6 +25,7 @@ PERSONAL_LIFE_TERMS = [
     "wife",
 ]
 
+
 class PersonalLifeDetector(Detector):
     """
     This detector checks for words that relate to personal life instead of
@@ -55,16 +56,22 @@ class PersonalLifeDetector(Detector):
         for word, start, stop in token_indices:
             if word.lower() in PERSONAL_LIFE_TERMS:
                 report.add_flag(
-                    Flag(start, stop, Issue(
-                        "Personal Life",
-                        "The word {word} tends to relate to personal life.".format(word=word),
-                        "Try replacing with a sentiment about professional life."
-                    ))
+                    Flag(
+                        start,
+                        stop,
+                        Issue(
+                            "Personal Life",
+                            f"The word {word} tends to relate to personal life, "
+                            + "which is disproportionately included in letters "
+                            + "about women.",
+                            "Try replacing with a sentiment about professional life.",
+                        ),
+                    )
                 )
         return report
 
 
-def personal_life_terms_prevalence(doc: 'Document') -> float:
+def personal_life_terms_prevalence(doc: "Document") -> float:
     """
     Returns the prevalence of tems that refer to personal life.
 
@@ -79,9 +86,6 @@ def personal_life_terms_prevalence(doc: 'Document') -> float:
     """
     doc_words = doc.words()
 
-    return float(sum([
-        word in PERSONAL_LIFE_TERMS
-        for word in doc_words
-    ])) / len(doc_words)
-
-
+    return float(sum([word in PERSONAL_LIFE_TERMS for word in doc_words])) / len(
+        doc_words
+    )

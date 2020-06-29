@@ -13,9 +13,7 @@ _dir = os.path.dirname(__file__)
 
 
 GENDERED_WORDS = [
-    w.strip()
-    for w in open(
-    _dir + "/genderedwords.wordlist", 'r').readlines()
+    w.strip() for w in open(_dir + "/genderedwords.wordlist", "r").readlines()
 ]
 
 
@@ -44,13 +42,18 @@ class GenderedWordDetector(Detector):
         for word, start, stop in token_indices:
             if word.lower() in GENDERED_WORDS:
                 report.add_flag(
-                    Flag(start, stop, Issue(
-                        "Unnecessarily Gendered Words",
-                        "The word '{word}' is unneccesarily gendered.".format(
-                            word=word),
-                        "Replace this term with 'person' or 'individual', or a position-specific phrase like 'doctor' or 'author'.",
-                        bias=Issue.negative_result
-                    ))
+                    Flag(
+                        start,
+                        stop,
+                        Issue(
+                            "Unnecessarily Gendered Words",
+                            f"The word '{word}' is unneccesarily gendered.",
+                            "Replace this term with 'person' or 'individual', "
+                            + "or a position-specific phrase such as "
+                            + "'doctor' or 'author'.",
+                            bias=Issue.negative_result,
+                        ),
+                    )
                 )
 
         return report
