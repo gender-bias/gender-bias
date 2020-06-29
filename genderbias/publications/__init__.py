@@ -3,7 +3,7 @@ Tools for identifying mention of publications.
 """
 from typing import List, Dict
 
-import re
+import re, math
 
 from genderbias.document import Document
 from genderbias.detector import Detector, Report, Flag, Issue
@@ -31,6 +31,7 @@ def identify_publications(doc: Document) -> Dict[str, float]:
         "et al",
     ]
     potential_publications = {}
+    
     # First, do the very easy thing: Let's look for callouts to arXiv# or DOIs.
     # TODO
     pass
@@ -82,35 +83,30 @@ class PublicationDetector(Detector):
         super().__init__()
         self.min_publications = kwargs.get("min_publications", 0.5)
 
-    def get_flags(self, doc: "Document") -> List["Flag"]:
+    def get_summary(self, doc: "Document") -> str:
         """
-        Flag a document (globally) if we cannot find any research products.
-
-        Returns only a single flag if no publications/resources are mentioned.
+        Returns a string representing summary feedback on publications.
+        This will indicate if not enough publications were found.
+        Otherwise it will be empty.
         """
-        all_flags = []
-        # TODO: Any other flags needed here?
-
         # Sum up all of the probabilities of all publications. This is a bit
         # janky, but it acts as a proxy for the total number of publications
         # mentioned. For example, if there are two potential publications each
         # with a probability of 50%, then we could consider that a mention of
         # one single publication.
+        summary = ""
         pub_count = sum(identify_publications(doc).values())
         if pub_count < self.min_publications:
-            all_flags.append(
-                Flag(
-                    0,
-                    0,
-                    Issue(
-                        "Publications",
-                        "This document does not mention many publications.",
-                        "Try referencing more concrete publications or work "
-                        "byproducts, if possible.",
-                    ),
-                )
-            )
-        return all_flags
+            summary =   "This document does not mention many publications. "\
+                        "Try referencing more concrete publications or work "\
+                        "byproducts, if possible."
+        elif self.min_publications > 1:
+            summary =   "The text appears to mention at least {:n} publications."\
+                        .format(math.ceil(self.min_publications))
+            print(summary)
+        else:
+            summary =   "The text appears to mention at least one publication."
+        return summary
 
     def get_report(self, doc):
         """
@@ -124,7 +120,5 @@ class PublicationDetector(Detector):
 
         """
         report = Report("Publications")
-
-        for flag in self.get_flags(doc):
-            report.add_flag(flag)
+        report.set_summary(self.get_summary(doc))
         return report
