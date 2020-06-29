@@ -21,9 +21,7 @@ _dir = os.path.dirname(__file__)
 
 _all_women_forms_regex = "(?:woman|girl|women)"
 
-CONDITIONAL_SUPERLATIVE_REGEXES = [
-    f"\s(\w+est[^\.]*{_all_women_forms_regex})"
-]
+CONDITIONAL_SUPERLATIVE_REGEXES = [fr"\s(\w+est[^\.]*{_all_women_forms_regex})"]
 
 
 class ConditionalSuperlativesDetector(Detector):
@@ -56,10 +54,14 @@ class ConditionalSuperlativesDetector(Detector):
         for regex in CONDITIONAL_SUPERLATIVE_REGEXES:
             for match in re.finditer(regex, text):
                 report.add_flag(
-                    Flag(match.span()[0], match.span()[1], Issue(
-                        "Conditional Superlative",
-                        "This phrase appears to hedge a superlative to apply only to women."
-                    ))
+                    Flag(
+                        match.span()[0],
+                        match.span()[1],
+                        Issue(
+                            "Conditional Superlative",
+                            "This phrase appears to hedge a superlative to apply only to women.",
+                        ),
+                    )
                 )
 
         return report

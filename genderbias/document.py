@@ -2,21 +2,23 @@
 
 from typing import List, Tuple
 
+from contextlib import redirect_stdout
 import os
 import nltk
-from contextlib import redirect_stdout
 
 # Do not print log messages:
 with redirect_stdout(open(os.devnull, "w")):
-    nltk.download('punkt')
-    nltk.download('wordnet')
-    nltk.download('averaged_perceptron_tagger')
+    nltk.download("punkt")
+    nltk.download("wordnet")
+    nltk.download("averaged_perceptron_tagger")
+
 
 def cached(method):
     """
     Method decorator for the Document class, caching results if enabled
     """
     result = {}
+
     def wrapper(*args):
         if not args[0]._use_cache:
             return method(*args)
@@ -24,7 +26,9 @@ def cached(method):
         if params not in result:
             result[params] = method(*args)
         return result[params]
+
     return wrapper
+
 
 class Document:
     """
@@ -32,7 +36,7 @@ class Document:
     basic textwise feature extraction, such as listing words or sentences.
     """
 
-    def __init__(self, document: 'Document', **kwargs) -> None:
+    def __init__(self, document: "Document", **kwargs) -> None:
         """
         Create a new Document.
 
@@ -46,17 +50,16 @@ class Document:
         """
         # Pass `use_cache=False` if you want to disable caching
         self._use_cache = True
-        if 'no_cache' in kwargs:
-            self._use_cache = not kwargs['no_cache']
+        if "no_cache" in kwargs:
+            self._use_cache = not kwargs["no_cache"]
 
         # Try to load the document from disk.
         if not os.path.exists(document):
             self._text = document
         else:
             # If you fail to load from disk, it's because it's a string!
-            with open(document, 'r') as f:
+            with open(document, "r") as f:
                 self._text = f.read()
-
 
     def text(self) -> str:
         """
@@ -78,7 +81,7 @@ class Document:
             List[str]
 
         """
-        return [s.replace('\n', ' ') for s in nltk.sent_tokenize(self._text)]
+        return [s.replace("\n", " ") for s in nltk.sent_tokenize(self._text)]
 
     @cached
     def words(self) -> List[str]:
@@ -123,8 +126,8 @@ class Document:
         words = self.words()
         tagged = nltk.pos_tag(words)
         categories = {}
-        for type in {t[1] for t in tagged}:
-            categories[type] = [t[0] for t in tagged if t[1] == type]
+        for _type in {t[1] for t in tagged}:
+            categories[_type] = [t[0] for t in tagged if t[1] == _type]
         return categories
 
     @cached

@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
 
-from flask import Flask, request, jsonify
-from flask_cors import CORS
-
 import argparse
 import sys
-import json
+
+from flask import Flask, request, jsonify
+from flask_cors import CORS
 
 from genderbias import ALL_SCANNED_DETECTORS, Document
 
@@ -21,8 +20,10 @@ parser = argparse.ArgumentParser(
     description="Flask-based server for gender-bias detection over REST API"
 )
 parser.add_argument(
-    "--detectors", dest="detectors", default="",
-    help="Use specific detectors, not all available"
+    "--detectors",
+    dest="detectors",
+    default="",
+    help="Use specific detectors, not all available",
 )
 
 args = parser.parse_args()
@@ -35,8 +36,6 @@ if args.detectors:
         sys.exit(1)
 else:
     detectors = ALL_SCANNED_DETECTORS.values()
-
-
 
 
 @APP.route("/")
@@ -66,7 +65,7 @@ def route_check():
     Where each report has zero or more flags.
 
     """
-    text = request.json['text']
+    text = request.json["text"]
     doc = Document(text)
 
     reports = []
@@ -74,10 +73,7 @@ def route_check():
         reports.append(detector().get_report(doc))
 
     reports_data = [report.to_dict() for report in reports]
-    return jsonify({
-        "issues": reports_data,
-        "text": request.json['text']
-    })
+    return jsonify({"issues": reports_data, "text": request.json["text"]})
 
 
 # Run the server.

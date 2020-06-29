@@ -246,4 +246,3 @@ class Detector:
         Returns a Report for a document.
         """
         raise NotImplementedError()
-

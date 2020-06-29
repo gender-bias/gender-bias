@@ -7,23 +7,38 @@ from genderbias import ALL_SCANNED_DETECTORS, Document
 
 
 def main():
-    parser = argparse.ArgumentParser(
-        description="CLI for gender-bias detection"
+    """
+    Run the command-line genderbias interface.
+
+    For help, see `genderbias --help`.
+
+    """
+    parser = argparse.ArgumentParser(description="CLI for gender-bias detection")
+    parser.add_argument(
+        "--file", "-f", dest="file", required=False, help="The file to check"
     )
     parser.add_argument(
-        "--file", "-f", dest="file", required=False,
-        help="The file to check"
+        "--json",
+        "-j",
+        dest="json",
+        required=False,
+        default=False,
+        action="store_true",
+        help="Enable JSON output, instead of text",
     )
     parser.add_argument(
-        "--json", "-j", dest="json", required=False, default=False, action='store_true',
-        help="Enable JSON output, instead of text"
+        "--list-detectors",
+        dest="list_detectors",
+        default=False,
+        action="store_true",
+        help="List the available detectors",
     )
     parser.add_argument(
-        "--list-detectors", dest="list_detectors", default=False, action="store_true",
-        help="List the available detectors")
-    parser.add_argument(
-        "--detectors", dest="detectors", default="",
-        help="Use specific detectors, not all available")
+        "--detectors",
+        dest="detectors",
+        default="",
+        help="Use specific detectors, not all available",
+    )
 
     args = parser.parse_args()
 
@@ -58,7 +73,6 @@ def main():
     else:
         reports_data = [report.to_dict() for report in reports]
         print(json.dumps(reports_data))
-
 
 
 if __name__ == "__main__":

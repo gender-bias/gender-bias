@@ -19,14 +19,11 @@ _dir = os.path.dirname(__file__)
 
 
 ACCOMPLISHMENT_WORDS = [
-    w.strip()
-    for w in open(
-    _dir + "/accomplishment_words.wordlist", 'r').readlines()
+    w.strip() for w in open(_dir + "/accomplishment_words.wordlist", "r").readlines()
 ]
 
 EFFORT_WORDS = [
-    w.strip()
-    for w in open(_dir + "/effort_words.wordlist", 'r').readlines()
+    w.strip() for w in open(_dir + "/effort_words.wordlist", "r").readlines()
 ]
 
 
@@ -64,38 +61,50 @@ class EffortDetector(Detector):
         for word, start, stop in token_indices:
             if word.lower() in EFFORT_WORDS:
                 effort_flags.append(
-                    Flag(start, stop, Issue(
-                        "Effort vs Accomplishment",
-                        "The word '{word}' tends to speak about effort more than accomplishment.".format(
-                            word=word),
-                        "Try replacing with phrasing that emphasizes accomplishment.",
-                        bias=Issue.negative_result
-                    ))
+                    Flag(
+                        start,
+                        stop,
+                        Issue(
+                            "Effort vs Accomplishment",
+                            f"The word '{word}' tends to speak about "
+                            + "effort more than accomplishment.",
+                            "Try replacing with phrasing that emphasizes accomplishment.",
+                            bias=Issue.negative_result,
+                        ),
+                    )
                 )
             if word.lower() in ACCOMPLISHMENT_WORDS:
                 accomplishment_flags.append(
-                    Flag(start, stop, Issue(
-                        "Effort vs Accomplishment",
-                        "The word '{word}' tends to speak about accomplishment more than effort.".format(
-                            word=word),
-                        bias=Issue.positive_result
-                    ))
+                    Flag(
+                        start,
+                        stop,
+                        Issue(
+                            "Effort vs Accomplishment",
+                            f"The word '{word}' tends to speak about "
+                            + "accomplishment more than effort.",
+                            bias=Issue.positive_result,
+                        ),
+                    )
                 )
 
         for flag in effort_flags:
             report.add_flag(flag)
 
         if (
-            len(accomplishment_flags) is 0 or
-            len(effort_flags) / len(accomplishment_flags) > 1.2  # TODO: Arbitrary!
+            len(accomplishment_flags) is 0
+            or len(effort_flags) / len(accomplishment_flags) > 1.2  # TODO: Arbitrary!
         ):
             # Avoid divide-by-zero errors
             if len(accomplishment_flags) == 0:
-                report.set_summary("This document has too few words about concrete accomplishment.")
+                report.set_summary(
+                    "This document has too few words about concrete accomplishment."
+                )
             else:
-                report.set_summary("This document has a high ratio ({}:{}) of words suggesting effort to words suggesting concrete accomplishment.".format(
-                            len(effort_flags), len(accomplishment_flags)
-                        )
-                    )
+                report.set_summary(
+                    "This document has a high ratio "
+                    + f"({len(effort_flags)}:{len(accomplishment_flags)})"
+                    + "of words suggesting effort to words suggesting "
+                    + "concrete accomplishment.",
+                )
 
         return report

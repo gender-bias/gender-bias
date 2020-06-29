@@ -1,31 +1,40 @@
 """
 Author: Catherine DeJager (cmd16 on GitHub)
 Written for https://github.com/molliem/gender-bias
-Detects gender bias in letters of recommendation by searching usage of words that denote effort vs words that denote accomplishment.
+Detects gender bias in letters of recommendation by searching usage of
+words that denote effort vs words that denote accomplishment.
 """
 
 import argparse
 import nltk
 
 # Create an argument parser and tell it about arguments
-parser = argparse.ArgumentParser(description='Look for words that denote effort.')
+parser = argparse.ArgumentParser(description="Look for words that denote effort.")
 
 # positional argument for input file
 parser.add_argument(
-  '-f', '--file', metavar="<file name>",
-  help='name of input file',)
+    "-f", "--file", metavar="<file name>", help="name of input file",
+)
 
 # optional argument for effort words file
 parser.add_argument(
-  '-e', '--effort_file', dest='effort_file', default="effort_words.wordlist",
-  metavar="<effort file>",
-  help='name of file containing effort words')
+    "-e",
+    "--effort_file",
+    dest="effort_file",
+    default="effort_words.wordlist",
+    metavar="<effort file>",
+    help="name of file containing effort words",
+)
 
 # optional argument for accomplishment words file
 parser.add_argument(
-  '-a', '--accomplishment_file', dest='accomplishment_file', default="accomplishment_words.wordlist",
-  metavar="<accomplishment file>",
-  help='name of file containing accomplishment words')
+    "-a",
+    "--accomplishment_file",
+    dest="accomplishment_file",
+    default="accomplishment_words.wordlist",
+    metavar="<accomplishment file>",
+    help="name of file containing accomplishment words",
+)
 
 args = parser.parse_args()
 
@@ -54,7 +63,9 @@ accomplishment_freqdist = nltk.FreqDist()
 for word in nltk.word_tokenize(contents):
     if word in effort_words:
         effort_freqdist[word] += 1
-    if word in accomplishment_words:  # the two lists should be mutually exclusive, but the user may not abide by that rule
+    if (
+        word in accomplishment_words
+    ):  # the two lists should be mutually exclusive, but the user may not abide by that rule
         accomplishment_freqdist[word] += 1
 
 # print the results
@@ -64,5 +75,7 @@ for word in effort_freqdist.most_common():  # sorts the words from most to least
     print("%s\t%d" % (word, effort_freqdist[word]))
 
 print("Accomplishment words (and their frequencies:")
-for word in accomplishment_freqdist.most_common():  # sorts the words from most to least common
+for (
+    word
+) in accomplishment_freqdist.most_common():  # sorts the words from most to least common
     print("%s\t%d" % (word, accomplishment_freqdist[word]))
