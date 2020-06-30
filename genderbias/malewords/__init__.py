@@ -13,8 +13,6 @@ class MaleDetector(Detector):
     """
     Detect words that are more commonly used to recruit men rather than women.
 
-    TODO: Merge with FemaleDetector in a GenderedWordsDetector.
-
     """
 
     def get_report(self, doc):
