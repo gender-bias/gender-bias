@@ -14,8 +14,6 @@ class FemaleDetector(Detector):
     A detector for words that tend to be used more frequently for recruiting
     women than for recruiting men.
 
-    TODO: Move this into `genderedwords` detector
-
     """
 
     def get_report(self, doc):
