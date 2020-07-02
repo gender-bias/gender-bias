@@ -28,7 +28,20 @@ To run the current code:
 
 To install the project so that changes are reflected in the installed script and library, run `pip install -e .`.
 
-The test environment can be installed by using `pip install -e .[dev]`, and then run using `run_tests.sh`.
+
+## Using the test suite
+
+For your reference, the entire automated test suite can be found in the `tests` directory.
+
+Installation:
+* In order to use the test suite, you must have the python packages `pytest` and `pylint` installed on your machine.
+* To install these, run `pip install -e .[dev]`.
+* Or, to install them individually, run `pip install pytest` and `pip install pylint`.
+
+To test all of the detectors at once, execute `./run_tests.sh`. This script calls `pytest` and `pylint`.
+
+To run an individual detector test, run (for example) `pytest tests/test_publication_detector.py`.
+
 
 # How can I contribute?
 
