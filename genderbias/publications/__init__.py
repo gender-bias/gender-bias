@@ -3,7 +3,8 @@ Tools for identifying mention of publications.
 """
 from typing import List, Dict
 
-import re, math
+import re
+import math
 
 from genderbias.document import Document
 from genderbias.detector import Detector, Report, Flag, Issue
@@ -31,19 +32,17 @@ def identify_publications(doc: Document) -> Dict[str, float]:
         "et al",
     ]
     potential_publications = {}
-    
+
     # First, do the very easy thing: Let's look for callouts to arXiv# or DOIs.
     # TODO
-    pass
 
     # Next, look for common markers of authorship, such as "et al".
     # TODO
-    pass
 
     # Anything in quotes get a low probability:
     # TODO: Smart quotes and single quotes
     rxp = re.compile('"[^"]+"')
-    for match in re.findall(rxp, doc._text):
+    for match in re.findall(rxp, doc.text()):
         if match not in potential_publications:
             potential_publications[match] = 0.0
         potential_publications[match] += 0.25
@@ -97,15 +96,18 @@ class PublicationDetector(Detector):
         summary = ""
         pub_count = sum(identify_publications(doc).values())
         if pub_count < self.min_publications:
-            summary =   "This document does not mention many publications. "\
-                        "Try referencing more concrete publications or work "\
-                        "byproducts, if possible."
+            summary = (
+                "This document does not mention many publications. "
+                "Try referencing more concrete publications or work "
+                "byproducts, if possible."
+            )
         elif self.min_publications > 1:
-            summary =   "The text appears to mention at least {:n} publications."\
-                        .format(math.ceil(self.min_publications))
+            summary = "The text appears to mention at least {:n} publications.".format(
+                math.ceil(self.min_publications)
+            )
             print(summary)
         else:
-            summary =   "The text appears to mention at least one publication."
+            summary = "The text appears to mention at least one publication."
         return summary
 
     def get_report(self, doc):

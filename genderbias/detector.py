@@ -1,8 +1,13 @@
 from abc import abstractmethod
 
+from .document import Document
+
 
 class BiasBoundsException(Exception):
-    pass
+    """
+    An exception to raise when the weighting of an issue is outside the
+    acceptable bounds of [-1, 1].
+    """
 
 
 class Issue:
@@ -192,7 +197,7 @@ class Report:
         text = [self._name]
         if self._flags:
             text += [
-                " " + str(flag)
+                "  " + str(flag)
                 for flag in self._flags
                 if flag.issue.bias == Issue.negative_result
             ]
@@ -239,9 +244,8 @@ class Detector:
         pass
 
     @abstractmethod
-    def get_report(self, doc: "Document"):
+    def get_report(self, doc: Document):
         """
         Returns a Report for a document.
         """
         raise NotImplementedError()
-
