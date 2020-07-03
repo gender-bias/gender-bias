@@ -26,6 +26,16 @@ def main():
         action="store_true",
         help="Enable JSON output, instead of text",
     )
+
+    parser.add_argument(
+        "--no-color",
+        dest="no_color",
+        required=False,
+        default=False,
+        action="store_true",
+        help="Use plaintext output (instead of color + formatting)",
+    )
+
     parser.add_argument(
         "--list-detectors",
         dest="list_detectors",
@@ -69,7 +79,20 @@ def main():
         reports.append(detector().get_report(doc))
 
     if not args.json:
-        print("\n".join(str(report) for report in reports))
+        if args.no_color:
+            print(
+                "\n".join(
+                    report.pprint(use_emoji=False, use_color=False)
+                    for report in reports
+                    if len(report.get_flags())
+                )
+            )
+        else:
+            print(
+                "\n".join(
+                    report.pprint() for report in reports if len(report.get_flags())
+                )
+            )
     else:
         reports_data = [report.to_dict() for report in reports]
         print(json.dumps(reports_data))
