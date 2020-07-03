@@ -60,8 +60,6 @@ class EffortDetector(Detector):
         doc = nlp(doc.text())
 
         # Ignore adjectives about the author.
-        # TODO: This is dependent upon the type of writing! If this is a cover-
-        # letter, e.g., then these are not good to exclude!
         _PRONOUNS_TO_IGNORE = ["me", "I", "myself"]
 
         # Keep track of accomplishment- or effort-specific words:
@@ -71,47 +69,56 @@ class EffortDetector(Detector):
         # Keep track of flags (we'll deduplicate them before reporting)
         flags = set()
 
-        # Loop over NOUN-ADJ pairs:
-        for i, token in enumerate(doc):
-            if token.pos_ not in ("NOUN", "PROPN", "PRON"):
-                # We don't need to assign a valence to this token
-                continue
-            if str(token) in _PRONOUNS_TO_IGNORE:
-                # If this token IS a noun but it's an ignored pronoun, move on
-                continue
+        # Loop over tokens to find adjectives to flag:
+        for token in doc:
+            # Find all tokens whose dependency tag is adjectival complement:
+            if token.dep_ == "acomp":
+                # Get all dependencies of the head/root of the tagged sentence
+                # and look for nouns (which are likely to be the referenced
+                # subject of this adjectival complement):
+                for reference_token in token.head.children:
+                    # If this token IS a noun but it's an ignored pronoun, move on
+                    if (
+                        reference_token.pos_ in ["PRON", "PROPN"]
+                        and reference_token.text not in _PRONOUNS_TO_IGNORE
+                    ):
+                        print(reference_token, token)
+                        # If accomplishment-flavored, add positive flag.
+                        if token.text in ACCOMPLISHMENT_WORDS:
+                            accomplishment_words += 1
+                            warning = (
+                                f"The word '{token.text}' refers to "
+                                + "explicit accomplishment rather than effort."
+                            )
+                            suggestion = ""
+                            bias = Issue.positive_result
 
-            # Find corresponding adjective:
-            for j in range(i + 1, len(doc)):
-                if doc[j].pos_ == "ADJ":
+                        # If effort-flavored, add negative flag.
+                        elif token.text in EFFORT_WORDS:
+                            effort_words += 1
+                            warning = (
+                                f"The word '{token.text}' tends to speak "
+                                + "about effort more than accomplishment."
+                            )
+                            suggestion = (
+                                "Try replacing with phrasing that "
+                                + "emphasizes accomplishment."
+                            )
+                            bias = Issue.negative_result
 
-                    # If accomplishment-flavored, add positive flag.
-                    if str(doc[j]) in ACCOMPLISHMENT_WORDS:
-                        accomplishment_words += 1
-                        warning = f"The word '{str(doc[j])}' refers to explicit accomplishment rather than effort."
-                        suggestion = ""
-                        bias = Issue.positive_result
+                        else:
+                            continue
 
-                    # If effort-flavored, add negative flag.
-                    elif str(doc[j]) in EFFORT_WORDS:
-                        effort_words += 1
-                        warning = f"The word '{str(doc[j])}' tends to speak about effort more than accomplishment."
-                        suggestion = "Try replacing with phrasing that emphasizes accomplishment."
-                        bias = Issue.negative_result
-
-                    else:
-                        break
-
-                    flags.add(
-                        (
-                            doc[j].sent.start_char,
-                            doc[j].sent.end_char,
-                            warning,
-                            suggestion,
-                            bias,
+                        flags.add(
+                            (
+                                token.sent.start_char,
+                                token.sent.end_char,
+                                warning,
+                                suggestion,
+                                bias,
+                            )
                         )
-                    )
 
-                    break
         for (start, stop, warning, suggestion, bias) in flags:
             # Add a flag to the report:
             report.add_flag(
@@ -122,12 +129,11 @@ class EffortDetector(Detector):
                 )
             )
 
-        if (
-            accomplishment_words == 0 and effort_words > 0
-        ) or effort_words / accomplishment_words > 1.2:  # TODO: Arbitrary!
+        if 0 < effort_words <= accomplishment_words:
             report.set_summary(
                 "This document has a high ratio of words suggesting "
-                + f"effort to words suggesting concrete accomplishment.",
+                + f"effort ({effort_words}) to words suggesting "
+                + f"concrete accomplishment ({effort_words}).",
             )
 
         return report
