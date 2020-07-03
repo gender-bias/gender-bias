@@ -57,7 +57,7 @@ class EffortDetector(Detector):
         report = Report("Effort vs Accomplishment")
 
         nlp = spacy.load("en_core_web_sm")
-        doc = nlp(doc.text)
+        doc = nlp(doc.text())
 
         # Ignore adjectives about the author.
         # TODO: This is dependent upon the type of writing! If this is a cover-
@@ -67,6 +67,9 @@ class EffortDetector(Detector):
         # Keep track of accomplishment- or effort-specific words:
         accomplishment_words = 0
         effort_words = 0
+
+        # Keep track of flags (we'll deduplicate them before reporting)
+        flags = set()
 
         # Loop over NOUN-ADJ pairs:
         for i, token in enumerate(doc):
@@ -84,46 +87,47 @@ class EffortDetector(Detector):
                     # If accomplishment-flavored, add positive flag.
                     if str(doc[j]) in ACCOMPLISHMENT_WORDS:
                         accomplishment_words += 1
-                        warning = (
-                            f"The word '{str(doc[j])}' refers to explicit accomplishment rather than effort.",
-                        )
+                        warning = f"The word '{str(doc[j])}' refers to explicit accomplishment rather than effort."
                         suggestion = ""
                         bias = Issue.positive_result
 
                     # If effort-flavored, add negative flag.
                     elif str(doc[j]) in EFFORT_WORDS:
                         effort_words += 1
-                        warning = (
-                            f"The word '{str(doc[j])}' tends to speak about effort more than accomplishment.",
-                        )
+                        warning = f"The word '{str(doc[j])}' tends to speak about effort more than accomplishment."
                         suggestion = "Try replacing with phrasing that emphasizes accomplishment."
                         bias = Issue.negative_result
 
                     else:
                         break
 
-                    # Add a flag to the report:
-                    report.add_flag(
-                        Flag(
+                    flags.add(
+                        (
                             doc[j].sent.start_char,
                             doc[j].sent.end_char,
-                            Issue(
-                                "Effort vs Accomplishment",
-                                warning,
-                                suggestion,
-                                bias=bias,
-                            ),
+                            warning,
+                            suggestion,
+                            bias,
                         )
                     )
+
                     break
+        for (start, stop, warning, suggestion, bias) in flags:
+            # Add a flag to the report:
+            report.add_flag(
+                Flag(
+                    start,
+                    stop,
+                    Issue("Effort vs Accomplishment", warning, suggestion, bias=bias),
+                )
+            )
 
         if (
             accomplishment_words == 0 and effort_words > 0
         ) or effort_words / accomplishment_words > 1.2:  # TODO: Arbitrary!
             report.set_summary(
                 "This document has a high ratio of words suggesting "
-                + f"effort ({effort_words}) to words suggesting "
-                + f"concrete accomplishment ({accomplishment_words}).",
+                + f"effort to words suggesting concrete accomplishment.",
             )
 
         return report
