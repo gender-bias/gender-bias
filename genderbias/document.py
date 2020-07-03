@@ -7,10 +7,9 @@ import os
 import nltk
 
 # Do not print log messages:
-with redirect_stdout(open(os.devnull, "w")):
-    nltk.download("punkt")
-    nltk.download("wordnet")
-    nltk.download("averaged_perceptron_tagger")
+nltk.download("punkt", quiet=True)
+nltk.download("wordnet", quiet=True)
+nltk.download("averaged_perceptron_tagger", quiet=True)
 
 
 def cached(method):
