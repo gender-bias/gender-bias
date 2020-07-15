@@ -60,7 +60,7 @@ class EffortDetector(Detector):
         doc = nlp(doc.text())
 
         # Ignore adjectives about the author.
-        _PRONOUNS_TO_IGNORE = ["me", "I", "myself"]
+        _PRONOUNS_TO_IGNORE = ["me", "myself", "I"]
 
         # Keep track of accomplishment- or effort-specific words:
         accomplishment_words = 0
