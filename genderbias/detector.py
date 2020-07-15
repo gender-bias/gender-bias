@@ -232,8 +232,8 @@ class Report:
             str: A terminal-friendly formatted string for stdout
 
         """
-        good_indicator = "🟢" if use_emoji else " "
-        bad_indicator = "🔴" if use_emoji else "!"
+        good_indicator = " "
+        bad_indicator = "!"
 
         color_scheme = Colors if use_color else NoColors
 
