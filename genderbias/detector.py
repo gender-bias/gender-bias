@@ -239,7 +239,7 @@ class Report:
 
         text_lines = []
         text_lines.append(
-            pretty_format([color_scheme.BOLD, color_scheme.CYAN], self._name)
+            pretty_format([color_scheme.BOLD], self._name)
         )
         for flag in self._flags:
             if flag.issue.bias > 0:
