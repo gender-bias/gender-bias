@@ -1,6 +1,8 @@
 from abc import abstractmethod
+from typing import List
 
 from .document import Document
+from .printing import pretty_format, Colors, NoColors
 
 
 class BiasBoundsException(Exception):
@@ -171,6 +173,19 @@ class Report:
         """
         self._flags.append(flag)
 
+    def get_flags(self) -> List[Flag]:
+        """
+        Get a list of flags from this Report.
+
+        Arguments:
+            None
+
+        Returns:
+            List[Flag]
+
+        """
+        return self._flags
+
     def set_summary(self, summary: str) -> None:
         """
         Sets the summary for the report.
@@ -204,6 +219,40 @@ class Report:
         if self._summary:
             text.append(" SUMMARY: " + self._summary)
         return "\n".join(text)
+
+    def pprint(self, use_emoji: bool = True, use_color: bool = True) -> str:
+        """
+        Creates a prettily-printed version of this report, good for CLI output.
+
+        Arguments:
+            use_emoji (bool: True): Whether to print emoji when running output
+            use_color (bool: True): Whether to use color when printing
+
+        Returns:
+            str: A terminal-friendly formatted string for stdout
+
+        """
+        good_indicator = " "
+        bad_indicator = "!"
+
+        color_scheme = Colors if use_color else NoColors
+
+        text_lines = []
+        text_lines.append(
+            pretty_format([color_scheme.BOLD], self._name)
+        )
+        for flag in self._flags:
+            if flag.issue.bias > 0:
+                text_lines.append(
+                    f"  {good_indicator}\t"
+                    + pretty_format([color_scheme.GREEN], str(flag))
+                )
+            elif flag.issue.bias <= 0:
+                text_lines.append(
+                    f"  {bad_indicator}\t"
+                    + pretty_format([color_scheme.RED], str(flag))
+                )
+        return "\n".join(text_lines)
 
     def to_dict(self) -> dict:
         """
