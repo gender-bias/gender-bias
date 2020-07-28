@@ -82,7 +82,6 @@ class EffortDetector(Detector):
                         reference_token.pos_ in ["PRON", "PROPN"]
                         and reference_token.text not in _PRONOUNS_TO_IGNORE
                     ):
-                        print(reference_token, token)
                         # If accomplishment-flavored, add positive flag.
                         if token.text in ACCOMPLISHMENT_WORDS:
                             accomplishment_words += 1
