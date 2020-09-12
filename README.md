@@ -56,6 +56,9 @@ pip3 install -e .
 
 This installation process will add a new command-line tool to your PATH, called `genderbias`.
 
+To install the dependencies, run:
+`pip3 install -r requirements.txt`
+
 ### Usage
 
 #### Learning about usage
