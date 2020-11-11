@@ -1,15 +1,9 @@
 #!/usr/bin/env python3
 
 from typing import List, Tuple
-
-from contextlib import redirect_stdout
 import os
-import nltk
 
-# Do not print log messages:
-nltk.download("punkt", quiet=True)
-nltk.download("wordnet", quiet=True)
-nltk.download("averaged_perceptron_tagger", quiet=True)
+import spacy
 
 
 def cached(method):
@@ -60,6 +54,9 @@ class Document:
             with open(document, "r") as f:
                 self._text = f.read()
 
+        nlp = spacy.load("en_core_web_sm")
+        self._spacy_doc = nlp(self._text)
+
     def text(self) -> str:
         """
         Returns the text of the document.
@@ -74,26 +71,22 @@ class Document:
         """
         Compute a list of sentences.
 
-        Uses nltk.sent_tokenize.
-
         Returns:
             List[str]
 
         """
-        return [s.replace("\n", " ") for s in nltk.sent_tokenize(self._text)]
+        return [s.string.replace("\n", "") for s in self._spacy_doc.sents]
 
     @cached
     def words(self) -> List[str]:
         """
         Compute a list of words from this Document.
 
-        Uses nltk.word_tokenize.
-
         Returns:
             List[str]
 
         """
-        return nltk.word_tokenize(self._text)
+        return [tok.string.strip() for tok in self._spacy_doc]
 
     @cached
     def words_with_indices(self) -> List[Tuple[str, int, int]]:
@@ -110,36 +103,3 @@ class Document:
             token_indices.append((word, offset, offset + len(word)))
             offset += len(word)
         return token_indices
-
-    @cached
-    def words_by_part_of_speech(self) -> dict:
-        """
-        Compute the parts of speech for each word in the document.
-
-        Uses nltk.pos_tag.
-
-        Returns:
-            dict
-
-        """
-        words = self.words()
-        tagged = nltk.pos_tag(words)
-        categories = {}
-        for _type in {t[1] for t in tagged}:
-            categories[_type] = [t[0] for t in tagged if t[1] == _type]
-        return categories
-
-    @cached
-    def stemmed_words(self) -> List:
-        """
-        Compute the stems of words.
-
-        Uses nltk.PorterStemmer.
-
-        Returns:
-            List
-
-        """
-        words = self.words()
-        porter = nltk.PorterStemmer()
-        return [porter.stem(w) for w in words]
