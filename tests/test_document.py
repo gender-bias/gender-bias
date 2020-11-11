@@ -1,13 +1,8 @@
 import os
 
-import nltk
 from pytest import fixture
 
 from genderbias.document import Document
-
-
-porter = nltk.PorterStemmer()
-wnl = nltk.WordNetLemmatizer()
 
 example_dir = os.path.dirname(__file__) + "/../example_letters/"
 
@@ -60,13 +55,6 @@ def test_words_with_indices(example_doc):
 def test_stemming(example_doc):
     assert (sum([len(x) for x in example_doc['document'].words()]) >
             sum([len(x) for x in example_doc['document'].stemmed_words()]))
-
-
-# def test_lemmatizing():
-#     words = ['strangely']
-#     stemmed = [porter.stem(w) for w in words]
-#     lemmaed = [wnl.lemmatize(w) for w in stemmed]
-#     assert lemmaed == ['strange']
 
 
 def test_sentence(example_doc):
