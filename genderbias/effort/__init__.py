@@ -56,9 +56,6 @@ class EffortDetector(Detector):
         """
         report = Report("Effort vs Accomplishment")
 
-        nlp = spacy.load("en_core_web_sm")
-        doc = nlp(doc.text())
-
         # Ignore adjectives about the author.
         _PRONOUNS_TO_IGNORE = ["me", "myself", "I"]
 
@@ -68,6 +65,44 @@ class EffortDetector(Detector):
 
         # Keep track of flags (we'll deduplicate them before reporting)
         flags = set()
+
+        for word, start, stop in doc.words_with_indices():
+            if word.lower() in EFFORT_WORDS:
+                report.add_flag(
+                    Flag(
+                        start,
+                        stop,
+                        Issue(
+                            "Effort vs Accomplishment",
+                            f"The word '{word}' tends to speak more about effort than concrete accomplishment.",
+                            # lower negative bias because this may be spurious.
+                            # Specifically, the presence of these words doesn't
+                            # mean that it's being attributed to the subject of
+                            # the letter.
+                            bias=Issue.negative_result * 0.5,
+                            fix="Speak about concrete achievement rather than abstract effort.",
+                        ),
+                    )
+                )
+            if word.lower() in ACCOMPLISHMENT_WORDS:
+                report.add_flag(
+                    Flag(
+                        start,
+                        stop,
+                        Issue(
+                            "Effort vs Accomplishment",
+                            f"The word '{word}' illustrates concrete accomplishment.",
+                            # lower positive valence because this may be spurious.
+                            # Specifically, the presence of these words doesn't
+                            # mean that it's being attributed to the subject of
+                            # the letter.
+                            bias=Issue.positive_result * 0.5,
+                        ),
+                    )
+                )
+
+        nlp = spacy.load("en_core_web_sm")
+        doc = nlp(doc.text())
 
         # Loop over tokens to find adjectives to flag:
         for token in doc:
