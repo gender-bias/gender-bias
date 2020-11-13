@@ -216,12 +216,11 @@ class Report:
             text.append(" SUMMARY: " + self._summary)
         return "\n".join(text)
 
-    def pprint(self, use_emoji: bool = True, use_color: bool = True) -> str:
+    def pprint(self, use_color: bool = True) -> str:
         """
         Creates a prettily-printed version of this report, good for CLI output.
 
         Arguments:
-            use_emoji (bool: True): Whether to print emoji when running output
             use_color (bool: True): Whether to use color when printing
 
         Returns:

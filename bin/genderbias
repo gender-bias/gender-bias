@@ -82,7 +82,7 @@ def main():
         if args.no_color:
             print(
                 "\n".join(
-                    report.pprint(use_emoji=False, use_color=False)
+                    report.pprint(use_color=False)
                     for report in reports
                     if len(report.get_flags())
                 )
