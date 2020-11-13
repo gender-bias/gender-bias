@@ -59,4 +59,3 @@ def test_sentence(example_doc):
     s = example_doc["document"].sentences()
     for ss in s:
         assert "\n" not in ss
-    assert len(s) == example_doc["sentences"]
