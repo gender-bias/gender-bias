@@ -11,12 +11,15 @@ GOOD_DOCUMENTS = [
     """It is always a pleasure working with NAME.""",
 ]
 
+
 def test_bad_documents_trip_detector():
     for doc in BAD_DOCUMENTS:
-        text = str(PersonalLifeDetector().get_report(Document(doc)))
-        assert len(text.split("\n")) > 2
+        text = PersonalLifeDetector().get_report(Document(doc)).to_string()
+        print(text)
+        assert "tends to relate" in text
+
 
 def test_good_documents_pass_detector():
     for doc in GOOD_DOCUMENTS:
-        text = str(PersonalLifeDetector().get_report(Document(doc)))
-        assert len(text.split("\n")) == 2
+        report = PersonalLifeDetector().get_report(Document(doc))
+        assert len(report.get_flags()) == 0

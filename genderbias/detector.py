@@ -70,10 +70,6 @@ class Issue:
             str: The Issue, formatted as: `Name: Description. (Fix)`
 
         """
-        if (
-            self.bias != Issue.negative_result
-        ):  # Maybe users should always check for bias instead?
-            return ""
         result = self.name
         if self.description:
             result += ": " + self.description

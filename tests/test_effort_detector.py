@@ -14,8 +14,7 @@ GOOD_DOCUMENTS = [
 
 def test_bad_documents_trip_detector():
     for doc in BAD_DOCUMENTS:
-        text = str(EffortDetector().get_report(Document(doc)))
-        assert "tends to" in text and "The word" in text
+        assert len(EffortDetector().get_report(Document(doc)).get_flags()) > 0
 
 
 def test_good_documents_pass_detector():
