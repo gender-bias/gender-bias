@@ -94,7 +94,9 @@ setup(
         "bin/genderbias-server",  # REST API served using Flask
     ],
     install_requires=REQUIRED,
-    extras_require={"dev": DEVELOPING_REQS,},
+    extras_require={
+        "dev": DEVELOPING_REQS,
+    },
     include_package_data=True,
     license="MIT",
     classifiers=[
@@ -106,5 +108,7 @@ setup(
         "Programming Language :: Python :: 3.6",
     ],
     # $ setup.py publish support.
-    cmdclass={"upload": UploadCommand,},
+    cmdclass={
+        "upload": UploadCommand,
+    },
 )

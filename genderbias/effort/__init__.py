@@ -17,6 +17,12 @@ import spacy
 
 from genderbias.detector import Detector, Flag, Issue, Report, Document
 
+
+nlp = spacy.load("en_core_web_sm")
+# Ignore adjectives about the author.
+_PRONOUNS_TO_IGNORE = ["me", "myself", "I"]
+
+
 _dir = os.path.dirname(__file__)
 
 
@@ -56,9 +62,6 @@ class EffortDetector(Detector):
         """
         report = Report("Effort vs Accomplishment")
 
-        # Ignore adjectives about the author.
-        _PRONOUNS_TO_IGNORE = ["me", "myself", "I"]
-
         # Keep track of accomplishment- or effort-specific words:
         accomplishment_words = 0
         effort_words = 0
@@ -74,13 +77,15 @@ class EffortDetector(Detector):
                         stop,
                         Issue(
                             "Effort vs Accomplishment",
-                            f"The word '{word}' tends to speak more about effort than concrete accomplishment.",
+                            f"The word '{word}' tends to speak more about "
+                            + "effort than concrete accomplishment.",
                             # lower negative bias because this may be spurious.
                             # Specifically, the presence of these words doesn't
                             # mean that it's being attributed to the subject of
                             # the letter.
                             bias=Issue.negative_result * 0.5,
-                            fix="Speak about concrete achievement rather than abstract effort.",
+                            fix="Speak about concrete achievement rather "
+                            + "than abstract effort.",
                         ),
                     )
                 )
@@ -101,7 +106,6 @@ class EffortDetector(Detector):
                     )
                 )
 
-        nlp = spacy.load("en_core_web_sm")
         doc = nlp(doc.text())
 
         # Loop over tokens to find adjectives to flag:

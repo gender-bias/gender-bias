@@ -33,14 +33,7 @@ def identify_publications(doc: Document) -> Dict[str, float]:
     ]
     potential_publications = {}
 
-    # First, do the very easy thing: Let's look for callouts to arXiv# or DOIs.
-    # TODO
-
-    # Next, look for common markers of authorship, such as "et al".
-    # TODO
-
     # Anything in quotes get a low probability:
-    # TODO: Smart quotes and single quotes
     rxp = re.compile('"[^"]+"')
     for match in re.findall(rxp, doc.text()):
         if match not in potential_publications:
