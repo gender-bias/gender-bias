@@ -234,9 +234,7 @@ class Report:
         color_scheme = Colors if use_color else NoColors
 
         text_lines = []
-        text_lines.append(
-            pretty_format([color_scheme.BOLD], self._name)
-        )
+        text_lines.append(pretty_format([color_scheme.BOLD], self._name))
         for flag in self._flags:
             if flag.issue.bias > 0:
                 text_lines.append(
