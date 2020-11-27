@@ -61,4 +61,15 @@ def route_check():
 
 # Run the server.
 def run_server(*args, **kwargs):
+    """
+    Run a Flask-flavored server, with optional arguments.
+
+    Arguments are from Flask#run. Some options are below.
+
+    Arguments:
+        host (str): The IP address on which to listen
+        port (int): The port on which to listen
+        debug (bool): Whether to enable debug mode
+
+    """
     APP.run(*args, **kwargs)
