@@ -2,6 +2,13 @@
 
 
 class Colors:
+    """
+    A "color-scheme" with default formatting options.
+
+    Useful for writing user-facing output to TTY terminals.
+
+    """
+
     PURPLE = "\033[95m"
     CYAN = "\033[96m"
     DARKCYAN = "\033[36m"
@@ -15,6 +22,13 @@ class Colors:
 
 
 class NoColors:
+    """
+    A "color-scheme" with no formatting options.
+
+    Useful for writing to non-TTY terminals.
+
+    """
+
     PURPLE = ""
     CYAN = ""
     DARKCYAN = ""
@@ -28,6 +42,18 @@ class NoColors:
 
 
 def pretty_print(colors, text, cr=True):
+    """
+    Print a string with CLI color and formatting options.
+
+    Arguments:
+        colors (list): A list of color formatting options
+        text (str): The string to format
+        cr (bool: True): Whether to include a carriage return.
+
+    Returns:
+        None
+
+    """
     if isinstance(colors, list):
         pre = "".join(colors)
     else:
@@ -40,6 +66,17 @@ def pretty_print(colors, text, cr=True):
 
 
 def pretty_format(colors, text):
+    """
+    Format a string with CLI color and formatting options.
+
+    Arguments:
+        colors (list): A list of color formatting options
+        text (str): The string to format
+
+    Returns:
+        str: The formatted string
+
+    """
     if isinstance(colors, list):
         pre = "".join(colors)
     else:
