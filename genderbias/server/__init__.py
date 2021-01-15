@@ -6,7 +6,8 @@ import sys
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 
-from genderbias import ALL_SCANNED_DETECTORS, Document
+from ..scanned_detectors import ALL_SCANNED_DETECTORS
+from ..document import Document
 
 
 SERVER_VERSION = "0.1.0"
@@ -16,26 +17,8 @@ CORS(APP)
 
 # Parse arguments. If the --detectors flag is used, then only use the detectors
 # that are requested.
-parser = argparse.ArgumentParser(
-    description="Flask-based server for gender-bias detection over REST API"
-)
-parser.add_argument(
-    "--detectors",
-    dest="detectors",
-    default="",
-    help="Use specific detectors, not all available",
-)
 
-args = parser.parse_args()
-
-if args.detectors:
-    if args.detectors in ALL_SCANNED_DETECTORS:
-        detectors = [ALL_SCANNED_DETECTORS[args.detectors]]
-    else:
-        print("Detector named '{}' not available.".format(args.detectors))
-        sys.exit(1)
-else:
-    detectors = ALL_SCANNED_DETECTORS.values()
+detectors = ALL_SCANNED_DETECTORS.values()
 
 
 @APP.route("/")
@@ -77,5 +60,16 @@ def route_check():
 
 
 # Run the server.
-if __name__ == "__main__":
-    APP.run(host="0.0.0.0", debug=True)
+def run_server(*args, **kwargs):
+    """
+    Run a Flask-flavored server, with optional arguments.
+
+    Arguments are from Flask#run. Some options are below.
+
+    Arguments:
+        host (str): The IP address on which to listen
+        port (int): The port on which to listen
+        debug (bool): Whether to enable debug mode
+
+    """
+    APP.run(*args, **kwargs)
