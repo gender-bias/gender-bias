@@ -224,13 +224,17 @@ Studies on bias related gender, race, and ethnicity show that letters/evaluation
 ### biasly ###
 
 "Tackling gender bias in text" https://drive.google.com/file/d/1--Gu_mcHssy7KLPePSvNExiOQt8Emmur/view
+
 https://github.com/k1c/biasly
+
 Publications https://sites.google.com/view/biaslyai/about/publications?authuser=0
 
 ### Gender Bias Calculator ###
 
 "A tool to calculate gender-bias in recommendation letters based on an implementation by Thomas Forth" 
+
 https://github.com/slowe/genderbias
+
 Demo https://slowe.github.io/genderbias/
 
 ### Equity Bias ###
