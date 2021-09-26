@@ -205,15 +205,15 @@ If you want to report a problem or suggest an improvement, please [open an issue
 * [Contributors' guidelines](CONTRIBUTING.md)
 * [Roadmap](https://github.com/molliem/gender-bias/issues/1)
 
-Studies on gender bias show that letters/evaluations written for women are:
+Studies on bias related gender, race, and ethnicity show that letters/evaluations written for women and persons excluded because of their ethnicity or race [(PEERs)](link_PEERs) are:
 
 * Less likely to mention [publications, projects, and research](#publications-projects-and-research)
-* Less likely to include [superlatives](#superlatives) ('She was the best, the top, the greatest')
+* Less likely to include [superlatives](#superlatives) ('They were the best, the top, the greatest')
 * Less likely to use [nouns](#nouns) ('He was a researcher' while 'she taught')
-* More likely to include [minimal assurance](#minimal-assurance) ('She can do the job') rather than a strong endorsement
-* More likely to highlight [effort](#effort) ('She is hard-working') instead of highlighting accomplishments ('her research')
+* More likely to include [minimal assurance](#minimal-assurance) ('They can do the job') rather than a strong endorsement
+* More likely to highlight [effort](#effort) ('They are hard-working') instead of highlighting accomplishments ('their research')
 * More likely to discuss [personal life](#personal-life) and fail to use formal titles
-* More likely to include [gender stereotypes](#gender-stereotypes) ('She is compassionate' while 'he is a leader') and emotion-focused words
+* More likely to include [stereotypes](#stereotypes) ('They are warm' while 'They are a skilled') and emotion-focused words
 * More likely to [raise doubt](#raise-doubt)
 * [Shorter](#shorter)
 
@@ -298,3 +298,4 @@ https://aaberhe.files.wordpress.com/2019/03/avoiding-racial-bias-in-reference-wr
 [link_Jason]: https://twitter.com/jaclark
 [link_Mollie]: https://twitter.com/MollieMarr
 [link_mozilla]: https://mozilla.github.io/leadership-training/
+[link_PEERs]: https://www.cell.com/cell/pdf/S0092-8674(20)30337-8.pdf
