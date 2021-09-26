@@ -1,14 +1,16 @@
-# Reading for Gender Bias
+# Reading for  Bias
 
-***Promote gender equality by identifying potential gender bias in letters of recommendation and evaluations***
+We are updating our language because we are now working to include bias related to race and ethnicity. Some of the code/commands as well as the project title will still reflect the original project which focused on gender bias. The goal is to continue to update this tool as new ways of identifying ALL forms of bias are recognized.
+
+***Promote equity by identifying potential bias in letters of recommendation and evaluations***
 
 ***Autocorrect for bias***
 
-Implicit gender bias in evaluations negatively impacts women at every stage of her career. The goal of this project is to create a web-based text analysis tool that scans and reveals language bias associated with evaluations and letters of recommendation written for trainees and applicants.  The tool will provide a summary of potential changes to the writer to help them remove bias.  The hope is that by bringing awareness to the existence of implicit bias, we can change how evaluations for women are drafted and judged, thereby providing a concrete way to tackle gender disparities.
+Implicit bias in evaluations negatively affects individuals at every stage of their career. The goal of this project is to create a web-based text analysis tool that scans and reveals language bias associated with evaluations and letters of recommendation.  The tool will provide a summary of potential changes to the writer to help them remove bias.  The hope is that by bringing awareness to the existence of implicit bias, we can change how evaluations and letters are drafted and judged, thereby providing a concrete way to tackle disparities related to gender, race, and ethnicity.
 
 ## Welcome!
 
-Thank you for visiting the Reading for Gender Bias project!
+Thank you for visiting the Reading for Bias project!
 
 This document (the README file) introduces you to the project.  Feel free to explore by section or just scroll through.
 
@@ -23,20 +25,20 @@ This document (the README file) introduces you to the project.  Feel free to exp
 
 ### The problem
 
-* Gender disparities exist in medicine, science, business, and many other professions
-* Letters of recommendation and evaluations written for women differ in key ways from letters written for men
-* The differences impact everything from how women are graded in a class to whether they are hired or promoted
-* Most writers (men and women) are unaware of gender bias in their writing
+* Disparities based on gender, race, and ethnicity exist in medicine, science, business, and many other professions
+* Letters of recommendation and evaluations written differ in key ways depending on gender, race, and ethnicity
+* The differences impact everything from how individuals are graded in a class to whether they are hired or promoted
+* Most writers are unaware of bias in their writing (it is implicit)
 
-So, even if someone wants to write a really strong letter for a woman, they will probably include language that reflects [implicit bias][link_implicitbias], which weakens the letter.
+So, even if someone wants to write a really strong letter, they will probably include language that reflects [implicit bias][link_implicitbias], which weakens the letter.
 
 ### The solution
 
-Reading for Gender Bias is a web-based text analysis tool that:
+Reading for Bias is a web-based text analysis tool that:
 
 * Scans evaluations or letters for language associated with bias
 * Summarizes changes that would reduce bias for the writer
-* Increases awareness of gender bias
+* Increases awareness of bias related to gender, race, and ethnicity
 
 ## Usage
 
@@ -178,7 +180,7 @@ The response is JSON of the form:
 
 ## About the founder
 
-[Mollie][link_Mollie] is a medical student and a future neuroscientist who would like to make the world a better place.
+[Mollie][link_Mollie] is a medical student and neuroscientist who would like to make the world a better place.
 
 The development of this project is mentored by [Jason][link_Jason] as part of [Mozilla Open Leaders][link_mozilla] and started in 2018.
 
@@ -192,11 +194,11 @@ We need expertise in coding, web design, program development, documentation, and
 
 If you think you can help in any of these areas or in an area I haven't thought of yet, please check out our [contributors' guidelines](CONTRIBUTING.md) and our [roadmap](https://github.com/molliem/gender-bias/issues/1).
 
-The goal of this project is to promote gender equity, so we want to maintain a positive and supportive environment for everyone who wants to participate.  Please follow the [Mozilla Community Participation Guidelines](https://www.mozilla.org/en-US/about/governance/policies/participation/) in all interactions on and offline.  Thanks!
+The goal of this project is to promote equity, so we want to maintain a positive and supportive environment for everyone who wants to participate.  Please follow the [Mozilla Community Participation Guidelines](https://www.mozilla.org/en-US/about/governance/policies/participation/) in all interactions on and offline.  Thanks!
 
 ## Contact me
 
-If you want to report a problem or suggest an improvement, please [open an issue](../../issues) at this github repository.  You can also reach [Mollie](link_Mollie) by email (mollie@biascorrect.com) or on [twitter](https://twitter.com/MollieMarr).
+If you want to report a problem or suggest an improvement, please [open an issue](../../issues) at this github repository.  You can also reach [Mollie](link_Mollie) by email (marmo@ohsu.edu) or on [twitter](https://twitter.com/MollieMarr).
 
 ## Learn more
 
@@ -217,6 +219,32 @@ Studies on gender bias show that letters/evaluations written for women are:
 
 
 ## THANK YOU!!!
+
+## Related projects/resources
+### biasly ###
+
+"Tackling gender bias in text" https://drive.google.com/file/d/1--Gu_mcHssy7KLPePSvNExiOQt8Emmur/view
+https://github.com/k1c/biasly
+Publications https://sites.google.com/view/biaslyai/about/publications?authuser=0
+
+### Gender Bias Calculator ###
+
+"A tool to calculate gender-bias in recommendation letters based on an implementation by Thomas Forth" 
+https://github.com/slowe/genderbias
+Demo https://slowe.github.io/genderbias/
+
+### Equity Bias ###
+http://www.rebeccakreitzer.com/bias/
+
+### Great poster summarizing gender bias ###
+
+https://csw.arizona.edu/sites/default/files/avoiding_gender_bias_in_letter_of_reference_writing.pdf
+
+H/t from https://twitter.com/pollyp1/status/1040646167305113600 for more discussions
+
+### Great poster summarizing racial bias ###
+
+https://aaberhe.files.wordpress.com/2019/03/avoiding-racial-bias-in-reference-writing.pdf
 
 ## References
 
