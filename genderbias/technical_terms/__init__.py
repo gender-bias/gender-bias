@@ -18,16 +18,16 @@ TECHNICAL_TERMS = [
     "parent",
 ]
 
-
 class TechnicalTermsDetector(Detector):
     """
     This detector checks for words that relate to technical terms
 
     Links:
         https://github.com/gender-bias/gender-bias/issues/87
+    
     """
 
-    def get_report(self, doc):
+    def get_report(self, doc): 
         """
         Generate a report on the text based upon mentions of
         technical-term-related words.
