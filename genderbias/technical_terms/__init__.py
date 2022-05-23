@@ -24,7 +24,7 @@ class TechnicalTermsDetector(Detector):
 
     Links:
         https://github.com/gender-bias/gender-bias/issues/87
-    
+        https://www.proquest.com/docview/2583118526?fromopenview=true&pq-origsite=gscholar
     """
 
     def get_report(self, doc): 
