@@ -1,8 +1,7 @@
 """
-Check for words that pertain to technical terms such as "parent" and "class" which confused the tool. 
+Check for words that pertain to technical terms such as "whitelist", "whitelist", "dummy value" which is discriminatory. 
 
-Incorporating technical terminology, enabling the tool to provide outcomes that avoid these phrases 
-in the online conversations during software development.
+Tools for identifying mention of words / terms that commonly used in Software Artifacts and Developer Communications .
 
 """
 
@@ -10,28 +9,18 @@ from genderbias.document import Document
 from genderbias.detector import Detector, Flag, Issue, Report
 
 TECHNICAL_TERMS = [
-    "allowlist",
-    "denylist",
-    "leader",
-    "follower",
-    "primary",
-    "replica",
-    "standby",
-    "legacy status",
-    "folks",
-    "people",
-    "you all",
-    "y'all",
-    "they",
-    "them",
-    "their",
-    "person hours",
-    "engineer hours",
-    "quick check",
-    "confidence check",
-    "coherence check",
-    "placeholder value",
-    "sample value",
+    "whitelist",
+    "blacklist",
+    "master",
+    "slave",
+    "grandfathered",
+    "guys",
+    "he",
+    "him",
+    "his",
+    "man hours",
+    "sanity check",
+    "dummy value",
 ]
 
 class TechnicalTermsDetector(Detector):
@@ -67,8 +56,8 @@ class TechnicalTermsDetector(Detector):
                         stop,
                         Issue(
                             "Technical Terms",
-                            f"The word {word} tends to relate to technical terms, "
-                            + "which is disproportionately included in conversations "
+                            f"The word {word} tends to relate to technical terms that is non-inclusive language "
+                            + ", is disproportionately included in conversations "
                         ),
                     )
                 )
@@ -77,13 +66,13 @@ class TechnicalTermsDetector(Detector):
 
 def Techical_terms_prevalence(doc: "Document") -> str:
     """
-    Returns the prevalence of tems that refer to personal life.
+    Returns the prevalence of tems that refer to techinical terminology that is discriminatory.
 
     Arguments:
         doc (Document): The document to check
 
     Returns:
-        str: The "concentration" of technical terms
+        str: The "concentration" of technical terms in Software Artifacts and Developer Communications.
 
     """
     doc_words = doc.words()
