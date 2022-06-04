@@ -1,7 +1,7 @@
 """
-Check for words that pertain to technical terms such as "whitelist", "whitelist", "dummy value" which is discriminatory. 
+the tool also checks for words that pertain to technical terms such as "whitelist", "whitelist", and "dummy value" which is discriminatory. 
 
-Tools for identifying mention of words / terms that commonly used in Software Artifacts and Developer Communications .
+Tools for identifying mention of words/terms that are commonly used in Software Artifacts and Developer Communications.
 
 """
 
